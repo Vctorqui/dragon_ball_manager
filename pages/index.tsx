@@ -1,18 +1,15 @@
-import { Box } from '@mui/material'
-import theme from '../theme/theme'
+import { Layout } from '@/layouts/Layout'
+import Banner from '@/components/Banner'
+import Contribution from '@/components/Contribution'
+import SearchSection from '@/components/Seach'
 
 const Home = () => {
   return (
-    <Box
-      bgcolor={theme.palette.primary.main}
-      height={'100vh'}
-      display={'flex'}
-      flexDirection={'column'}
-      justifyContent={'center'}
-      alignItems={'center'}
-    >
-      <h1>Dragon ball</h1>
-    </Box>
+    <Layout>
+      <Banner />
+      <SearchSection />
+      <Contribution />
+    </Layout>
   )
 }
 
