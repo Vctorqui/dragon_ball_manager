@@ -26,7 +26,7 @@ const CardStyled = styled(Box)((theme) => ({
   },
   '.card-content': {
     position: 'relative',
-    width: '300px',
+    // width: '300px',
     padding: '20px',
     // background: 'white',
     border: '1px solid #fff',
