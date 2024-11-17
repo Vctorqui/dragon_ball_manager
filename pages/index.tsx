@@ -1,13 +1,13 @@
 import { Layout } from '@/layouts/Layout'
 import Banner from '@/components/Banner'
 import Contribution from '@/components/Contribution'
-import SearchSection from '@/components/Seach'
+import ListOfCharacters from '@/components/Characters'
 
 const Home = () => {
   return (
     <Layout>
       <Banner />
-      <SearchSection />
+      <ListOfCharacters />
       <Contribution />
     </Layout>
   )

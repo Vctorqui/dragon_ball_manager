@@ -7,7 +7,7 @@ const colors = {
     dark: '',
   },
   secondary: {
-    main: '#0B192C',
+    main: '#FF6500',
     light: '#EEEEEE',
   },
   text: {
@@ -39,13 +39,16 @@ const theme = responsiveFontSizes(
       fontFamily: ['Segoe-ui', 'Helvetica', 'Arial', 'Nulshock'].join(','),
       h1: {
         fontSize: '4.375rem',
-        fontFamily: 'Nulshock',
+        fontFamily: 'Saiyan-Sans',
+        fontWeight: 100,
       },
       h2: {
-        fontFamily: 'Nulshock',
+        fontFamily: 'Saiyan-Sans',
+        fontWeight: 100,
       },
       h3: {
-        fontFamily: 'Nulshock',
+        fontFamily: 'Saiyan-Sans',
+        fontWeight: 100,
       },
       h4: {
         fontFamily: 'Arial',
@@ -137,6 +140,25 @@ const theme = responsiveFontSizes(
           },
         },
       },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: { color: 'white', '&.Mui-focused': { color: 'white' } },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            '& fieldset': { borderColor: 'white' },
+            '&:hover fieldset': { borderColor: 'blue' },
+            '&.Mui-focused fieldset': { borderColor: 'white' },
+          },
+        },
+      },
+      MuiSelect: { styleOverrides: { icon: { color: 'white' } } },
+      MuiMenuItem: {
+        styleOverrides: { root: { '&:hover': { backgroundColor: 'blue' } } },
+      },
+      MuiPaper: { styleOverrides: { root: { backgroundColor: 'black' } } },
       MuiContainer: {
         styleOverrides: {
           root: {
@@ -147,40 +169,8 @@ const theme = responsiveFontSizes(
       MuiCssBaseline: {
         styleOverrides: `
           @font-face {
-            font-family: 'Nulshock';
-            src: local('Nulshock'), url(/fonts/nulshock.ttf) format('truetype');
-          }
-          @font-face {
-            font-family: 'Segoe-ui';
-            font-weight: 400;
-            src: local('Segoe-ui'), url(/fonts/segoe/segoe-ui.ttf) format('truetype');
-          }
-          @font-face {
-            font-family: 'Segoe-ui';
-            font-weight: 700;
-            src: local('Segoe-ui'), url(/fonts/segoe/segoe-ui-bold.ttf) format('truetype');
-          }
-          @font-face {
-            font-family: 'Courier';
-            font-weight: 400;
-            src: local('Courier'), url(/fonts/courier-prime/CourierPrime-Regular.ttf) format('truetype');
-          }
-          @font-face {
-            font-family: 'Courier';
-            font-weight: 400;
-            font-style: italic;
-            src: local('Courier'), url(/fonts/courier-prime/CourierPrime-Italic.ttf) format('truetype');
-          }
-          @font-face {
-            font-family: 'Courier';
-            font-weight: 700;
-            src: local('Courier'), url(/fonts/courier-prime/CourierPrime-Bold.ttf) format('truetype');
-          }
-          @font-face {
-            font-family: 'Courier';
-            font-weight: 700;
-            font-style: italic;
-            src: local('Courier'), url(/fonts/courier-prime/CourierPrime-BoldItalic.ttf) format('truetype');
+            font-family: 'Saiyan-Sans';
+            src: local('Nulshock'), url(/fonts/saiyan-sans/Saiyan-Sans.ttf) format('truetype');
           }
         `,
       },

@@ -2,9 +2,13 @@ import { Box, Container, styled, Typography } from '@mui/material'
 import theme from '../../theme/theme'
 
 const BannerContainer = styled(Box)(() => ({
-  background: theme.palette.primary.main,
+  backgroundImage: 'url(https://i.redd.it/8rbb1xqoyaec1.gif)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundPosition:'top center',
+  // background: theme.palette.primary.main,
   position: 'relative',
-  height: 'calc(100vh - 250px)',
+  height: 'calc(100vh - 450px)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -31,9 +35,8 @@ const Banner = () => {
         <Container maxWidth={'lg'}>
           <Box className='bannerContainer'>
             <Typography
-              fontWeight={800}
               textAlign={'center'}
-              variant='h3'
+              variant='h2'
               color={theme.palette.text.primary}
             >
               Dragon Ball Character Manager
