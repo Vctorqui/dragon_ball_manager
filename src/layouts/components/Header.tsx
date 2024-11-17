@@ -10,6 +10,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 const AppBarContainer = styled(AppBar)(({ theme }) => ({
   background: theme.palette.primary.main,
@@ -72,15 +73,19 @@ export const Header = () => {
               onClick={() => router.push('/')}
             >
               <Stack justifyContent={'center'} alignItems={'center'}>
-                Dragon ball Z
+                <Image
+                  style={{ maxWidth: '100%' }}
+                  src={'/assets/logo.webp'}
+                  width={160}
+                  height={90}
+                  alt='Logo of devBash'
+                />
               </Stack>
             </Box>
             {router.pathname === '/' && (
               <>
                 <BoxNavContainer>
-                  <Link className='nav-link' href={'#quotes'}>
-                    
-                  </Link>
+                  <Link className='nav-link' href={'#quotes'}></Link>
                 </BoxNavContainer>
               </>
             )}
