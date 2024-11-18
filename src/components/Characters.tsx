@@ -1,23 +1,18 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   FormControl,
-  FormControlLabel,
   InputLabel,
   MenuItem,
-  Stack,
   styled,
-  TextField,
   Typography,
 } from '@mui/material'
 import { CardDB } from './ui/CardStyled'
 import responsiveCharacters from '@/mocks/with-results.json'
-import withoutResults from '@/mocks/without-results.json'
 import theme from '../../theme/theme'
 import localforage from 'localforage'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { characterTypes } from '@/types/types'
 import StylizedInput from './ui/InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
@@ -91,7 +86,7 @@ const ListOfCharacters = () => {
   }
 
   return (
-    <section style={{ background: '#000', padding: '20px 0' }}>
+    <Box sx={{ background: '#000', padding: '20px 0' }}>
       <Container maxWidth='lg'>
         <StylizedInput
           color='secondary'
@@ -101,44 +96,32 @@ const ListOfCharacters = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Box
-          display={'flex'}
-          alignItems={'center'}
-          gap={2}
-          sx={{
-            '.css-1toxriw-MuiList-root-MuiMenu-list': {
-              background: '#000',
-            },
-          }}
-        >
-          <FormControl fullWidth>
-            <InputLabel>Filtrar por Raza</InputLabel>
-            <Select
-              value={selectedRaces}
-              onChange={handleRaceChange}
-              label='Filtrar por Raza'
-            >
-              {raceOptions.map((race) => (
-                <MenuItem key={race} value={race}>
-                  {race}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel>Filtrar por genero</InputLabel>
-            <Select
-              value={selectedGender}
-              onChange={handleGenderChange}
-              label='Filtrar por genero'
-            >
-              {genderOptions.map((gender) => (
-                <MenuItem key={gender} value={gender}>
-                  {gender}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        <Box display={'flex'} alignItems={'center'} gap={2}>
+          <InputLabel>Filtrar por Raza</InputLabel>
+          <Select
+            value={selectedRaces}
+            onChange={handleRaceChange}
+            label='Filtrar por Raza'
+          >
+            {raceOptions.map((race) => (
+              <MenuItem key={race} value={race}>
+                {race}
+              </MenuItem>
+            ))}
+          </Select>
+
+          <InputLabel>Filtrar por genero</InputLabel>
+          <Select
+            value={selectedGender}
+            onChange={handleGenderChange}
+            label='Filtrar por genero'
+          >
+            {genderOptions.map((gender) => (
+              <MenuItem key={gender} value={gender}>
+                {gender}
+              </MenuItem>
+            ))}
+          </Select>
         </Box>
         <Box
           mt={2}
@@ -165,7 +148,7 @@ const ListOfCharacters = () => {
           </Box>
         </CardContainer>
       </Container>
-    </section>
+    </Box>
   )
 }
 
