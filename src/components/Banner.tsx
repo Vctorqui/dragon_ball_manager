@@ -1,15 +1,13 @@
-import { Box, Container, styled, Typography } from '@mui/material'
+import { Box, styled, Typography } from '@mui/material'
 import theme from '../../theme/theme'
 
 const BannerContainer = styled(Box)(() => ({
-  // backgroundImage: 'url(https://i.redd.it/8rbb1xqoyaec1.gif)',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundPosition: 'top center',
-  // background: theme.palette.primary.main,
+  background: theme.palette.primary.main,
   position: 'relative',
   height: 'calc(100vh - 450px)',
+  overflow: 'hidden',
   display: 'flex',
+  flexDirection: 'row-reverse',
   justifyContent: 'center',
   alignItems: 'center',
   '&::before': {
@@ -22,13 +20,22 @@ const BannerContainer = styled(Box)(() => ({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 1,
   },
+  '&.videoContainer': {
+    objectFit: 'cover',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: -1,
+  },
   '.bannerContainer': {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: '10px',
-    position: 'relative',
+    position: 'absolute',
     zIndex: 2,
     [theme.breakpoints.down('md')]: {
       alignItems: 'center',
@@ -47,27 +54,28 @@ const Banner = () => {
   return (
     <>
       <BannerContainer id='home'>
-        <Container maxWidth={'lg'}>
-          <Box className='bannerContainer'>
-            <Typography
-              textAlign={'center'}
-              variant='h2'
-              color={theme.palette.text.secondary}
-              className='banner-text'
-            >
-              Dragon Ball Character Manager
-            </Typography>
-            <Typography
-              textAlign={'center'}
-              color={theme.palette.text.primary}
-              variant='h6'
-              className='banner-text'
-            >
-              Explora el vasto universo de personajes de Dragon Ball. Busca,
-              filtra, crea, edita y descubre tus favoritos de la serie..
-            </Typography>
-          </Box>
-        </Container>
+        <Box className='videoContainer' component={'video'} autoPlay loop muted>
+          <source src='/video/banner-db.mp4' type='video/mp4' />
+        </Box>
+        <Box className='bannerContainer'>
+          <Typography
+            textAlign={'center'}
+            variant='h2'
+            color={theme.palette.text.secondary}
+            className='banner-text'
+          >
+            Dragon Ball Character Manager
+          </Typography>
+          <Typography
+            textAlign={'center'}
+            color={theme.palette.text.primary}
+            variant='h6'
+            className='banner-text'
+          >
+            Explora el vasto universo de personajes de Dragon Ball. Busca,
+            filtra, crea, edita y descubre tus favoritos de la serie..
+          </Typography>
+        </Box>
       </BannerContainer>
     </>
   )
