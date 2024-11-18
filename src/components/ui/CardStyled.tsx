@@ -78,7 +78,7 @@ export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
           src={character.image}
           className='card-image'
           width={150}
-          height={250}
+          height={270}
           alt={character.name}
         />
         <Stack display={'relative'} height={120}>
@@ -88,10 +88,10 @@ export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
             alignItems={'center'}
             className='first-content'
           >
-            <h2 className='card-title'>{character.name}</h2>{' '}
+            <h2 className='card-title'>{character.name}</h2>
             <p className='card-details'>
               <strong>Raza:</strong> {character.race}
-            </p>{' '}
+            </p>
             <p className='card-details'>
               <strong>Genero:</strong> {character.gender}
             </p>
@@ -102,10 +102,10 @@ export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
             alignItems={'center'}
             className='second-content'
           >
-            <h2 className='card-title'>{character.name}</h2>{' '}
+            <h2 className='card-title'>{character.name}</h2>
             <p className='card-details'>
               <strong>Power level:</strong> {character.ki}
-            </p>{' '}
+            </p>
             <p className='card-details'>
               <strong>Full Power Level:</strong> {character.maxKi}
             </p>

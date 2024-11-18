@@ -91,7 +91,7 @@ const ListOfCharacters = () => {
   }
 
   return (
-    <section style={{ background: '#000' }}>
+    <section style={{ background: '#000', padding: '20px 0' }}>
       <Container maxWidth='lg'>
         <StylizedInput
           color='secondary'
@@ -112,11 +112,11 @@ const ListOfCharacters = () => {
           }}
         >
           <FormControl fullWidth>
-            <InputLabel>Filter by Race</InputLabel>
+            <InputLabel>Filtrar por Raza</InputLabel>
             <Select
               value={selectedRaces}
               onChange={handleRaceChange}
-              label='Filter by Race'
+              label='Filtrar por Raza'
             >
               {raceOptions.map((race) => (
                 <MenuItem key={race} value={race}>
@@ -126,11 +126,11 @@ const ListOfCharacters = () => {
             </Select>
           </FormControl>
           <FormControl fullWidth>
-            <InputLabel>Filter by Gender</InputLabel>
+            <InputLabel>Filtrar por genero</InputLabel>
             <Select
               value={selectedGender}
               onChange={handleGenderChange}
-              label='Filter by Gender'
+              label='Filtrar por genero'
             >
               {genderOptions.map((gender) => (
                 <MenuItem key={gender} value={gender}>
@@ -140,10 +140,24 @@ const ListOfCharacters = () => {
             </Select>
           </FormControl>
         </Box>
-        <Button variant='contained' onClick={handleClearFilters} sx={{ mb: 4 }}>
-          Clear Filters
-        </Button>
+        <Box
+          mt={2}
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
+          <Button
+            variant='contained'
+            onClick={handleClearFilters}
+            sx={{ mb: 4 }}
+          >
+            Limpiar Filtros
+          </Button>
+        </Box>
         <CardContainer>
+          <Typography variant='h2' fontWeight={200}>
+            Personajes <span style={{ color: '#E63730' }}>Z</span>
+          </Typography>
           <Box className='card-grid'>
             {filteredCharacters.map((character) => (
               <CardDB key={character.id} character={character} />
