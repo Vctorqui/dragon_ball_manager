@@ -79,6 +79,7 @@ export const Header = () => {
                   width={160}
                   height={90}
                   alt='Logo of devBash'
+                  priority
                 />
               </Stack>
             </Box>

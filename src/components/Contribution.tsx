@@ -31,7 +31,7 @@ const Contribution = () => {
               <Link href='/auth/register'>Register Now</Link>
             </Button>
             <Button variant='outlined'>
-              <Link href='/auth/login'>Login</Link>
+              <Link href='login'>Login</Link>
             </Button>
           </div>
         </ContributionSection>
