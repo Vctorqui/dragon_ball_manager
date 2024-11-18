@@ -9,3 +9,9 @@ export interface characterTypes {
   image: string
   affiliation: string
 }
+
+export interface loginFormTypes {
+  email: string
+  password: string
+  name: string
+}
