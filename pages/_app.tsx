@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { ThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import theme from '../theme/theme'
+import { UserProvider } from '@/contexts/UserContext'
 
 export const metadata = {
   title: 'Dragon Ball Web',
@@ -11,7 +12,7 @@ export const metadata = {
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <UserProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Head>
@@ -22,7 +23,7 @@ function App({ Component, pageProps }: AppProps) {
         </Head>
         <Component {...pageProps} />
       </ThemeProvider>
-    </>
+    </UserProvider>
   )
 }
 
