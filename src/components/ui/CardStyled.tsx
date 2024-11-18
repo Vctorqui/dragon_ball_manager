@@ -25,6 +25,10 @@ const CardStyled = styled(Box)((theme) => ({
     transform: 'translateZ(50px)',
   },
   '.card-content': {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
     position: 'relative',
     // width: '300px',
     padding: '20px',
@@ -40,7 +44,7 @@ const CardStyled = styled(Box)((theme) => ({
   },
   '.card-image': {
     maxWidth: '100%',
-    borderRadius: '10px',
+    // borderRadius: '10px',
     transform: 'translateZ(10px)',
     transition: 'transform 0.5s',
   },
@@ -50,21 +54,23 @@ const CardStyled = styled(Box)((theme) => ({
     transform: 'translateZ(20px)',
   },
   '.first-content': {
-    transition: 'all 0.4s',
+    transition: 'opacity .4s, visibility .4s',
     opacity: 1,
+    visibility: 'visible',
     position: 'absolute',
   },
-  '&:hover .first-content': { opacity: 0 },
+  '&:hover .first-content': { opacity: 0, visibility: 'hidden' },
   '.second-content': {
     opacity: 0,
     position: 'absolute',
-    transition: 'all 0.4s',
+    transition: 'opacity 0.4s, visibility 0.4s, transform 0.4s, fontSize 0.4s',
+    visibility: 'hidden',
     fontSize: '0px',
     transform: 'rotate(90deg) scale(-1)',
   },
   '&:hover .second-content': {
     opacity: 1,
-
+    visibility: 'visible',
     fontSize: '1rem',
     transform: 'rotate(0deg)',
   },
@@ -72,7 +78,7 @@ const CardStyled = styled(Box)((theme) => ({
 
 export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
   return (
-    <CardStyled>
+    <CardStyled className={className} onClick={onClick}>
       <Box className='card-content'>
         <Image
           src={character.image}
@@ -81,10 +87,10 @@ export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
           height={270}
           alt={character.name}
         />
-        <Stack display={'relative'} height={120}>
+        <Stack justifyContent={'center'} alignItems={'center'} height={120}>
           <Stack
             spacing={1}
-            justifyContent={'flex-start'}
+            // justifyContent={'flex-start'}
             alignItems={'center'}
             className='first-content'
           >
@@ -98,7 +104,7 @@ export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
           </Stack>
           <Stack
             spacing={1}
-            justifyContent={'flex-start'}
+            // justifyContent={'flex-start'}
             alignItems={'center'}
             className='second-content'
           >

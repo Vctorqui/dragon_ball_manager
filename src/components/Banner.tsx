@@ -2,7 +2,7 @@ import { Box, Container, styled, Typography } from '@mui/material'
 import theme from '../../theme/theme'
 
 const BannerContainer = styled(Box)(() => ({
-  backgroundImage: 'url(https://i.redd.it/8rbb1xqoyaec1.gif)',
+  // backgroundImage: 'url(https://i.redd.it/8rbb1xqoyaec1.gif)',
   backgroundRepeat: 'no-repeat',
   backgroundSize: 'cover',
   backgroundPosition: 'top center',
