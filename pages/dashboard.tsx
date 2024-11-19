@@ -32,7 +32,7 @@ const Dasboard = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push('/auth/login')
+      router.push('/login')
     }
   }, [user, router])
 
@@ -59,6 +59,7 @@ const Dasboard = () => {
 
   const handleLogout = async () => {
     logout()
+    router.push('/login')
   }
 
   return (
