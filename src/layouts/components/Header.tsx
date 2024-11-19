@@ -61,125 +61,55 @@ const BoxNavContainer = styled(Box)(({ theme }) => ({
 
 export const Header = () => {
   const router = useRouter()
-  const { isLogin } = useContext(UserContext)
-  const handleNavigation = (path: string) => {
-    router.push(path)
+  const { user } = useContext(UserContext)
+
+  // Determina qué enlace mostrar
+  const renderLink = () => {
+    if (!user) {
+      if (router.pathname === '/login') {
+        return (
+          <Link className='returnLink' href='/'>
+            Regresar
+          </Link>
+        )
+      }
+      return (
+        <Link className='returnLink' href='/login'>
+          Iniciar Sesión
+        </Link>
+      )
+    } else {
+      if (router.pathname === '/dashboard') {
+        return (
+          <Link className='returnLink' href='/'>
+            Ir al centro de Filtrado
+          </Link>
+        )
+      }
+      return (
+        <Link className='returnLink' href='/dashboard'>
+          Ir al centro de Edición
+        </Link>
+      )
+    }
   }
 
   return (
-    // <Box>
-    //   <AppBarContainer position='fixed'>
-    //     <Container maxWidth={'lg'}>
-    //       <Toolbar className='toolBarStyled'>
-    //         <Box
-    //           sx={{ cursor: 'pointer' }}
-    //           display={'flex'}
-    //           alignItems={'center'}
-    //           gap={1}
-    //           onClick={() => router.push('/')}
-    //         >
-    //           <Stack justifyContent={'center'} alignItems={'center'}>
-    //             <Image
-    //               style={{ maxWidth: '100%' }}
-    //               src={'/assets/logo.webp'}
-    //               width={160}
-    //               height={90}
-    //               alt='Logo de Dragon ball super manager'
-    //               priority
-    //             />
-    //           </Stack>
-    //         </Box>
-    //         {isLogin && router.pathname === '/dashboard' ? (
-    //           <Button
-    //             variant='contained'
-    //             className='returnLink'
-    //             onClick={() => router.push('/dashboard')}
-    //           >
-    //             Ir al centro de Edicion
-    //           </Button>
-    //         ) : (
-    //           <Button
-    //             variant='contained'
-    //             className='returnLink'
-    //             onClick={() => router.push('/dashboard')}
-    //           >
-    //             Iniciar Sesion
-    //           </Button>
-    //         )}
-    //         {router.pathname === '/login' && (
-    //           <>
-    //             <Button
-    //               variant='text'
-    //               className='returnLink'
-    //               onClick={() => router.push('/')}
-    //             >
-    //               <KeyboardReturn />
-    //             </Button>
-    //           </>
-    //         )}
-    //       </Toolbar>
-    //     </Container>
-    //   </AppBarContainer>
-    // </Box>
     <Box>
       <AppBarContainer position='fixed'>
         <Container maxWidth='lg'>
           <Toolbar className='toolBarStyled'>
-            <Box
-              sx={{ cursor: 'pointer' }}
-              display='flex'
-              alignItems='center'
-              gap={1}
-              onClick={() => handleNavigation('/')}
-            >
-              <Stack justifyContent='center' alignItems='center'>
-                <Image
-                  style={{ maxWidth: '100%' }}
-                  src='/assets/logo.webp'
-                  width={160}
-                  height={90}
-                  alt='Logo de Dragon ball super manager'
-                  priority
-                />
-              </Stack>
-            </Box>
-            {/* Renderizado condicional basado en el estado de autenticación y la ruta */}
-            {!isLogin && router.pathname === '/' && (
-              <Button
-                variant='contained'
-                className='returnLink'
-                onClick={() => handleNavigation('/login')}
-              >
-                Iniciar Sesión
-              </Button>
-            )}
-            {isLogin && router.pathname === '/dashboard' && (
-              <Button
-                variant='contained'
-                className='returnLink'
-                onClick={() => handleNavigation('/')}
-              >
-                Ir al home a filtrar
-              </Button>
-            )}
-            {isLogin && router.pathname === '/' && (
-              <Button
-                variant='contained'
-                className='returnLink'
-                onClick={() => handleNavigation('/dashboard')}
-              >
-                Ir al centro de Edición
-              </Button>
-            )}
-            {router.pathname === '/login' && (
-              <Button
-                variant='text'
-                className='returnLink'
-                onClick={() => handleNavigation('/')}
-              >
-                <KeyboardReturn />
-              </Button>
-            )}
+            <Link href='/'>
+              <Image
+                style={{ maxWidth: '100%' }}
+                src='/assets/logo.webp'
+                width={160}
+                height={90}
+                alt='Logo de Dragon ball super manager'
+                priority
+              />
+            </Link>
+            {renderLink()}
           </Toolbar>
         </Container>
       </AppBarContainer>

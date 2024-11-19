@@ -23,7 +23,7 @@ const FormRegister = ({ children }: any) => {
     try {
       await userContext.register(data.name, data.email, data.password)
       enqueueSnackbar('Usuario registrado con éxito', { variant: 'success' })
-      router.reload()
+      router.push('/dashboard')
     } catch (error) {
       enqueueSnackbar('Registro fallido vuelva a intentarlo', {
         variant: 'error',
