@@ -37,3 +37,12 @@ export const registerSchema = z
     path: ['confirm_password'],
   })
 export type RegisterSchema = z.infer<typeof registerSchema>
+
+export const characterSchema = z.object({
+  name: z.string().min(2),
+  race: z.string().min(1),
+  gender: z.string().min(1),
+  image: z.any(),
+})
+
+export type CharacterSchema = z.infer<typeof characterSchema>

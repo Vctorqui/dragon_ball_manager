@@ -1,4 +1,7 @@
 import AddCharacterDialog from '@/components/AddCharacterModal'
+import { CharacterForm } from '@/components/CharacterForm'
+import { CharacterList } from '@/components/CharacterList'
+import CustomDialog from '@/components/StyledDialog'
 import { CardDB, CardDB2 } from '@/components/ui/CardStyled'
 import UserContext from '@/contexts/UserContext'
 import { Layout } from '@/layouts/Layout'
@@ -7,28 +10,30 @@ import { Logout } from '@mui/icons-material'
 import { Box, Button, Container, Grid2, Typography } from '@mui/material'
 import localforage from 'localforage'
 import { useRouter } from 'next/router'
+import { enqueueSnackbar } from 'notistack'
 import { useContext, useEffect, useState } from 'react'
 
 const Dasboard = () => {
+  const [open, setOpen] = useState(false)
   const router = useRouter()
   const { user, logout } = useContext(UserContext)
   const [characters, setCharacters] = useState<characterTypes[]>([])
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const response = await fetch(
-          'https://dragonball-api.com/api/characters'
-        )
-        const data = await response.json()
-        setCharacters(data.items.slice(0, 8)) // Limiting to 8 characters for demo
-      } catch (error) {
-        console.error('Error fetching characters:', error)
-      }
-    }
-    fetchCharacters()
-  }, [router])
+  // useEffect(() => {
+  //   const fetchCharacters = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         'https://dragonball-api.com/api/characters'
+  //       )
+  //       const data = await response.json()
+  //       setCharacters(data.items.slice(0, 8)) // Limiting to 8 characters for demo
+  //     } catch (error) {
+  //       console.error('Error fetching characters:', error)
+  //     }
+  //   }
+  //   fetchCharacters()
+  // }, [router])
 
   useEffect(() => {
     if (!user) {
@@ -40,22 +45,22 @@ const Dasboard = () => {
     return null
   }
 
-  const handleAddCharacter = (newCharacter: characterTypes) => {
-    setCharacters([...characters, { ...newCharacter, id: Date.now() }])
-    setIsAddDialogOpen(false)
-  }
+  // const handleAddCharacter = (newCharacter: characterTypes) => {
+  //   setCharacters([...characters, { ...newCharacter, id: Date.now() }])
+  //   setIsAddDialogOpen(false)
+  // }
 
-  const handleEditCharacter = (editedCharacter: characterTypes) => {
-    setCharacters(
-      characters.map((char) =>
-        char.id === editedCharacter.id ? editedCharacter : char
-      )
-    )
-  }
+  // const handleEditCharacter = (editedCharacter: characterTypes) => {
+  //   setCharacters(
+  //     characters.map((char) =>
+  //       char.id === editedCharacter.id ? editedCharacter : char
+  //     )
+  //   )
+  // }
 
-  const handleDeleteCharacter = (id: number) => {
-    setCharacters(characters.filter((char) => char.id !== id))
-  }
+  // const handleDeleteCharacter = (id: number) => {
+  //   setCharacters(characters.filter((char) => char.id !== id))
+  // }
 
   const handleLogout = async () => {
     logout()
@@ -85,10 +90,31 @@ const Dasboard = () => {
         <Button
           variant='contained'
           color='primary'
-          onClick={() => setIsAddDialogOpen(true)}
+          onClick={() => setOpen(true)}
           sx={{ mb: 4 }}
         >
-          Add New Character
+          Add Characther
+        </Button>
+        <CustomDialog title='Añadir personaje' open={open}>
+          <CharacterForm
+            onSuccess={() => {
+              setOpen(false)
+              enqueueSnackbar('Personaje añadido con exito', {
+                variant: 'success',
+              })
+            }}
+          />
+        </CustomDialog>
+        <CharacterList />
+      </Container>
+    </Layout>
+  )
+}
+
+export default Dasboard
+
+{
+  /* Add New Character
         </Button>
         <Grid2 container spacing={3}>
           {characters.map((character) => (
@@ -106,10 +132,5 @@ const Dasboard = () => {
           open={isAddDialogOpen}
           onClose={() => setIsAddDialogOpen(false)}
           onAdd={handleAddCharacter}
-        />
-      </Container>
-    </Layout>
-  )
+        /> */
 }
-
-export default Dasboard
