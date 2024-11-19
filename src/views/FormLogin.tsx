@@ -1,35 +1,14 @@
 import StylizedInput from '@/components/ui/InputStyled'
 import UserContext from '@/contexts/UserContext'
-import { Layout } from '@/layouts/Layout'
-import { loginFormTypes } from '@/types/types'
 import { loginSchema, LoginSchema } from '@/utils/const'
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Grid2,
-  styled,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Divider, styled, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const FormLoginContainer = styled(Box)(({ theme }) => ({
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   '.form-box': {
-  //     display: 'flex',
-  //     justifyContent: 'center',
-  //     alignItems: 'center',
-  //     flexDirection: 'column',
-  //   },
-}))
+const FormLoginContainer = styled(Box)(({ theme }) => ({}))
 
 const FormLogin = ({ children }: any) => {
   const { login, user } = useContext(UserContext)
@@ -72,7 +51,6 @@ const FormLogin = ({ children }: any) => {
           {...register('email')}
           error={!!errors.email}
           helperText={errors.email ? errors.email.message : ''}
-          // margin='normal'
         />
         <StylizedInput
           fullWidth
@@ -82,7 +60,6 @@ const FormLogin = ({ children }: any) => {
           {...register('password')}
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
-          // margin='normal'
         />
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Button
@@ -102,22 +79,3 @@ const FormLogin = ({ children }: any) => {
 }
 
 export default FormLogin
-
-//   const form = useForm<z.infer<typeof userSchema>>({
-//     resolver: zodResolver(userSchema),
-//     defaultValues: {
-//       email: '',
-//       password: '',
-//     },
-//   })
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault()
-//     try {
-//       await login(formLogin.email, formLogin.password)
-//       alert('login')
-//       router.push('/dashboard')
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }

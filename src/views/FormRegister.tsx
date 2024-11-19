@@ -1,41 +1,14 @@
-import StylizedInput, { isValidEmail } from '@/components/ui/InputStyled'
+import StylizedInput from '@/components/ui/InputStyled'
 import UserContext from '@/contexts/UserContext'
-import { Layout } from '@/layouts/Layout'
-
-import { loginFormTypes, registerFormTypes } from '@/types/types'
-import {
-  loginFormInit,
-  registerFormInit,
-  registerSchema,
-  RegisterSchema,
-} from '@/utils/const'
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Grid2,
-  styled,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { registerSchema, RegisterSchema } from '@/utils/const'
+import { Box, Button, Divider, styled, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const FormRegisterContainer = styled(Box)(({ theme }) => ({
-  // display: 'flex',
-  // justifyContent: 'center',
-  // alignItems: 'center',
-  // '.form-box': {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   flexDirection: 'column',
-  // },
-}))
+const FormRegisterContainer = styled(Box)(({ theme }) => ({}))
 
 const FormRegister = ({ children }: any) => {
   const userContext = useContext(UserContext)
@@ -82,7 +55,7 @@ const FormRegister = ({ children }: any) => {
           {...register('name')}
           error={!!errors.name}
           helperText={errors.name ? errors.name.message : ''}
-        />{' '}
+        />
         <StylizedInput
           fullWidth
           label='Correo Electronico'
@@ -90,7 +63,7 @@ const FormRegister = ({ children }: any) => {
           {...register('email')}
           error={!!errors.email}
           helperText={errors.email ? errors.email.message : ''}
-        />{' '}
+        />
         <StylizedInput
           fullWidth
           label='Contraseña'
@@ -100,7 +73,7 @@ const FormRegister = ({ children }: any) => {
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
-        <StylizedInput
+        {/* <StylizedInput
           type='password'
           required
           placeholder='***********'
@@ -110,7 +83,7 @@ const FormRegister = ({ children }: any) => {
           helperText={
             errors.confirm_password ? errors.confirm_password.message : ''
           }
-        />
+        /> */}
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Button
             type='submit'
@@ -129,32 +102,3 @@ const FormRegister = ({ children }: any) => {
 }
 
 export default FormRegister
-
-// const { register } = useContext(UserContext)
-// const [formRegister, setFormRegister] =
-//   useState<registerFormTypes>(registerFormInit)
-// const router = useRouter()
-
-// const handleChange = (event: any) => {
-//   let { name, value } = event.target
-//   setFormRegister({
-//     ...formRegister,
-//     [name]: value,
-//   })
-// }
-
-// const handleSubmit = async (e: React.FormEvent) => {
-//   e.preventDefault()
-//   try {
-//     await register(
-//       formRegister.name,
-//       formRegister.email,
-//       formRegister.password,
-//       formRegister.password_confirm
-//     )
-//     alert('registrado')
-//     router.push('/login')
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }

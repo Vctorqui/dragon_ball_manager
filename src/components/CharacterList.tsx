@@ -1,44 +1,20 @@
+import localforage from 'localforage'
+import { enqueueSnackbar } from 'notistack'
+import { useEffect, useState } from 'react'
+import { CardDB } from './ui/CardStyled'
 import {
   Box,
   Button,
   Dialog,
   DialogContent,
+  DialogTitle,
   Stack,
   styled,
-  Typography,
 } from '@mui/material'
-import localforage from 'localforage'
-import { enqueueSnackbar } from 'notistack'
-import { useEffect, useState } from 'react'
-import theme from '../../theme/theme'
 import Image from 'next/image'
 import { Delete, Edit } from '@mui/icons-material'
+import CharacterForm from './CharacterForm'
 import CustomDialog from './StyledDialog'
-import { CharacterForm } from './CharacterForm'
-
-const CardContainer = styled(Box)(() => ({
-  padding: '2rem 0',
-  minHeight: '100vh',
-  [theme.breakpoints.down('md')]: {
-    padding: '1rem 0',
-  },
-  '.card-grid': {
-    margin: '0 auto',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)' /* 2 columnas por defecto */,
-    gap: '1rem' /* Espacio entre elementos */,
-    gridAutoRows: '450px' /* Altura de las filas */,
-    [theme.breakpoints.down('md')]: {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      // gridAutoRows: '180px',
-    },
-    [theme.breakpoints.down('sm')]: {
-      gridTemplateColumns: 'repeat(1, 1fr)',
-      // gridAutoRows: '180px',
-    },
-  },
-}))
-
 const CardStyled = styled(Box)((theme) => ({
   perspective: '1000px',
   margin: '20px',
@@ -102,27 +78,26 @@ export const CharacterList = () => {
   const [editCharacter, setEditCharacter] = useState<any>(null)
   const [openDialog, setOpenDialog] = useState(false)
 
-  useEffect(() => {
-    loadCharacters()
-  }, [])
-  
   const loadCharacters = async () => {
     const savedCharacters =
       (await localforage.getItem<any[]>('characters')) || []
     setCharacters(savedCharacters)
   }
+  useEffect(() => {
+    loadCharacters()
+  }, [])
 
   const handleDelete = async (id: string) => {
     const updatedCharacters = characters.filter((c) => c.id !== id)
     await localforage.setItem('characters', updatedCharacters)
     setCharacters(updatedCharacters)
-    enqueueSnackbar('Personaje Eliminado con exito', { variant: 'success' })
+    enqueueSnackbar('Personaje Eliminado', { variant: 'success' })
   }
 
   return (
-    <CardContainer>
-      <Box className='card-grid'>
-        {characters.map((character) => (
+    <>
+      {characters.map((character) => (
+        <>
           <CardStyled key={character.id}>
             <Box className='card-content'>
               <Image
@@ -139,7 +114,6 @@ export const CharacterList = () => {
               >
                 <Stack
                   spacing={1}
-                  // justifyContent={'flex-start'}
                   alignItems={'center'}
                   className='first-content'
                 >
@@ -167,36 +141,36 @@ export const CharacterList = () => {
                 </Stack>
               </Stack>
             </Box>
-            <Button
-              onClick={() => {
-                setEditCharacter(character)
-                setOpenDialog(true)
-              }}
-            >
-              <Edit />
-            </Button>
-            <CustomDialog
-              title='Edit Character'
-              open={openDialog}
-              onClose={() => setOpenDialog(false)}
-            >
-              <CharacterForm
-                character={character}
-                onSuccess={() => {
-                  loadCharacters()
-                  setEditCharacter(null)
-                  enqueueSnackbar('Personaje Editado con exito', {
-                    variant: 'success',
-                  })
-                }}
-              />
-            </CustomDialog>
-            <Button onClick={() => handleDelete(character.id)}>
-              <Delete />
-            </Button>
           </CardStyled>
-        ))}
-      </Box>
-    </CardContainer>
+          <Button
+            onClick={() => {
+              setEditCharacter(character)
+              setOpenDialog(true)
+            }}
+          >
+            <Edit />
+          </Button>
+          <CustomDialog
+            title='Edit Character'
+            open={openDialog}
+            onClose={() => setOpenDialog(false)}
+          >
+            <CharacterForm
+              character={character}
+              onSuccess={() => {
+                loadCharacters()
+                setEditCharacter(null)
+                enqueueSnackbar('Personaje Editado con exito', {
+                  variant: 'success',
+                })
+              }}
+            />
+          </CustomDialog>
+          <Button onClick={() => handleDelete(character.id)}>
+            <Delete />
+          </Button>
+        </>
+      ))}
+    </>
   )
 }

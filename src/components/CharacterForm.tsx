@@ -1,11 +1,16 @@
-import { characterSchema, CharacterSchema } from '@/utils/const'
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button, styled } from '@mui/material'
-import localforage from 'localforage'
 import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import localforage from 'localforage'
+import { Box, Button, styled, Typography } from '@mui/material'
 import StylizedInput from './ui/InputStyled'
+import { characterSchema, CharacterSchema } from '@/utils/const'
+import { enqueueSnackbar } from 'notistack'
 import theme from '../../theme/theme'
 import { CloudUpload } from '@mui/icons-material'
+import { useState } from 'react'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -24,7 +29,10 @@ interface CharacterFormProps {
   onSuccess?: () => void
 }
 
-export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
+export default function CharacterForm({
+  character,
+  onSuccess,
+}: CharacterFormProps) {
   const {
     register,
     handleSubmit,
@@ -35,16 +43,16 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
     const characters = (await localforage.getItem<any[]>('characters')) || []
 
     const image = data.image[0]
-    const imageURL = URL.createObjectURL(image)
+    const imageUrl = URL.createObjectURL(image)
 
     if (character) {
       const index = characters.findIndex((c) => c.id === character.id)
-      characters[index] = { ...character, ...data, image: imageURL }
+      characters[index] = { ...character, ...data, image: imageUrl }
     } else {
       characters.push({
         id: Math.random().toString(36).slice(2, 9),
         ...data,
-        image: imageURL,
+        image: imageUrl,
       })
     }
     await localforage.setItem('characters', characters)
@@ -58,22 +66,28 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
+      {/* <Typography textAlign={'center'} variant='h6' gutterBottom>
+        Iniciar Sesión
+      </Typography> */}
       <StylizedInput
         fullWidth
-        placeholder='E.g. Goku '
+        // label='Correo'
+        placeholder='E.g. Goku'
         {...register('name')}
         error={!!errors.name}
         helperText={errors.name ? errors.name.message : ''}
-      />{' '}
+      />
       <StylizedInput
         fullWidth
+        // label='Contraseña'
         placeholder='E.g. Male'
         {...register('gender')}
         error={!!errors.gender}
         helperText={errors.gender ? errors.gender.message : ''}
-      />{' '}
+      />
       <StylizedInput
         fullWidth
+        // label='Contraseña'
         placeholder='E.g. Saiyan'
         {...register('race')}
         error={!!errors.race}
@@ -105,7 +119,7 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
           color='primary'
           sx={{ my: 2 }}
         >
-          {character ? 'Actualizar' : 'Añadir'} Character
+          {character ? 'Actualizar' : 'Añadir'} Personaje
         </Button>
       </Box>
     </Box>

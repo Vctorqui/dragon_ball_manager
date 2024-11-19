@@ -1,7 +1,6 @@
 import { Box, Button, Container, Typography, styled } from '@mui/material'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
-import Grid from '@mui/material/Grid2'
 import { Layout } from '@/layouts/Layout'
 import FormLogin from '@/views/FormLogin'
 import FormRegister from '@/views/FormRegister'
@@ -33,10 +32,7 @@ const Login: NextPage = () => {
                   <Typography variant='body2' fontWeight={'700'}>
                     ¿No tienes cuenta aún?
                   </Typography>
-                  <Button
-                    variant='outlined'
-                    onClick={() => setTab(1)}
-                  >
+                  <Button variant='outlined' onClick={() => setTab(1)}>
                     Crear una cuenta
                   </Button>
                 </Box>
