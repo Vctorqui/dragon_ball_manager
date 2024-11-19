@@ -11,28 +11,28 @@ import {
   Grid2,
   styled,
   TextField,
+  Typography,
 } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const FormLoginContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  '.form-box': {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
-  },
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   '.form-box': {
+  //     display: 'flex',
+  //     justifyContent: 'center',
+  //     alignItems: 'center',
+  //     flexDirection: 'column',
+  //   },
 }))
 
 const FormLogin = ({ children }: any) => {
-  const { login } = useContext(UserContext)
+  const { login, user } = useContext(UserContext)
   const router = useRouter()
   const {
     register,
@@ -44,55 +44,60 @@ const FormLogin = ({ children }: any) => {
     try {
       const { email, password } = data
       await login(email, password)
-      //   enqueueSnackbar('Login succesfull', { variant: 'success' })
+      enqueueSnackbar(`Bienvenido nuevamente,${user?.name}`, {
+        variant: 'success',
+      })
       router.push('/dashboard')
     } catch (error) {
-      //   enqueueSnackbar('login failed', { variant: 'error' })
+      enqueueSnackbar('Credenciales no válidas', { variant: 'error' })
       console.error(error)
     }
   }
 
   return (
-    <Layout>
-      <FormLoginContainer>
-        <Container maxWidth={'lg'}>
-          <Box
-            className='form-box'
-            component='form'
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
+    <FormLoginContainer>
+      <Box
+        className='form-box'
+        component='form'
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
+        <Typography textAlign={'center'} variant='h6' gutterBottom>
+          Iniciar Sesión
+        </Typography>
+        <StylizedInput
+          fullWidth
+          label='Correo'
+          placeholder='E.g. tucorreo@mail.com'
+          {...register('email')}
+          error={!!errors.email}
+          helperText={errors.email ? errors.email.message : ''}
+          // margin='normal'
+        />
+        <StylizedInput
+          fullWidth
+          label='Contraseña'
+          placeholder='********'
+          type='password'
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
+          // margin='normal'
+        />
+        <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            sx={{ my: 2 }}
           >
-            <TextField
-              fullWidth
-              label='Email'
-              {...register('email')}
-              error={!!errors.email}
-              helperText={errors.email ? errors.email.message : ''}
-              margin='normal'
-            />{' '}
-            <TextField
-              fullWidth
-              label='Password'
-              type='password'
-              {...register('password')}
-              error={!!errors.password}
-              helperText={errors.password ? errors.password.message : ''}
-              margin='normal'
-            />{' '}
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              sx={{ mt: 2 }}
-            >
-              Login
-            </Button>
-            <Divider />
-            {children}
-          </Box>
-        </Container>
-      </FormLoginContainer>
-    </Layout>
+            Iniciar Sesión
+          </Button>
+        </Box>
+        <Divider />
+        {children}
+      </Box>
+    </FormLoginContainer>
   )
 }
 

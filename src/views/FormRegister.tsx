@@ -25,31 +25,16 @@ import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-const FormGrid = styled(Grid2)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  background: theme.palette.secondary.main,
-  '.gridImg': {
-    height: 'calc(100vh - 123px)',
-    backgroundImage: 'url(/images/bg-log1.png)',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    position: 'relative',
-    [theme.breakpoints.down('lg')]: {
-      height: '400px',
-      backgroundPosition: 'top',
-    },
-    [theme.breakpoints.down('sm')]: {
-      height: '150px',
-    },
-  },
-  '.gridForms': {
-    [theme.breakpoints.down('sm')]: {
-      height: 'calc(100vh - 250px)',
-    },
-  },
+const FormRegisterContainer = styled(Box)(({ theme }) => ({
+  // display: 'flex',
+  // justifyContent: 'center',
+  // alignItems: 'center',
+  // '.form-box': {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   flexDirection: 'column',
+  // },
 }))
 
 const FormRegister = ({ children }: any) => {
@@ -64,64 +49,82 @@ const FormRegister = ({ children }: any) => {
   const onSubmit = async (data: RegisterSchema) => {
     try {
       await userContext.register(data.name, data.email, data.password)
-      // enqueueSnackbar('user registered succesfull', { variant: 'success' })
-      router.push('/login')
+      enqueueSnackbar('Usuario registrado con éxito', { variant: 'success' })
+      router.reload()
     } catch (error) {
-      // enqueueSnackbar('registered failed', { variant: 'error' })
+      enqueueSnackbar('Registro fallido vuelva a intentarlo', {
+        variant: 'error',
+      })
       console.error(error)
     }
   }
 
   return (
-    <Layout>
-      <FormGrid container spacing={0}>
-        <Grid2 className='gridImg' size={{ xs: 12, lg: 6 }} />
-        <Grid2 className='gridForms' size={{ xs: 12, lg: 6 }}>
-          <Container maxWidth='lg'>
-            <Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>
-              <Typography variant='h6' gutterBottom>
-                Register
-              </Typography>{' '}
-              <TextField
-                fullWidth
-                label='Name'
-                {...register('name')}
-                error={!!errors.name}
-                helperText={errors.name ? errors.name.message : ''}
-                margin='normal'
-              />{' '}
-              <TextField
-                fullWidth
-                label='Email'
-                {...register('email')}
-                error={!!errors.email}
-                helperText={errors.email ? errors.email.message : ''}
-                margin='normal'
-              />{' '}
-              <TextField
-                fullWidth
-                label='Password'
-                type='password'
-                {...register('password')}
-                error={!!errors.password}
-                helperText={errors.password ? errors.password.message : ''}
-                margin='normal'
-              />{' '}
-              <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                sx={{ mt: 2 }}
-              >
-                Submit
-              </Button>
-              <Divider />
-              {children}
-            </Box>
-          </Container>
-        </Grid2>
-      </FormGrid>
-    </Layout>
+    <FormRegisterContainer>
+      <Box
+        className='form-box'
+        component='form'
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
+        <Typography
+          textAlign={'center'}
+          component={'h4'}
+          variant='h3'
+          gutterBottom
+        >
+          Register
+        </Typography>
+        <StylizedInput
+          fullWidth
+          label='Nombre de Usuario'
+          placeholder='E.g. Victor '
+          {...register('name')}
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ''}
+        />{' '}
+        <StylizedInput
+          fullWidth
+          label='Correo Electronico'
+          placeholder='E.g. tucorreo@mail.com'
+          {...register('email')}
+          error={!!errors.email}
+          helperText={errors.email ? errors.email.message : ''}
+        />{' '}
+        <StylizedInput
+          fullWidth
+          label='Contraseña'
+          placeholder='*******'
+          type='password'
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
+        />
+        <StylizedInput
+          type='password'
+          required
+          placeholder='***********'
+          label='Confirmar Contraseña'
+          {...register('confirm_password')}
+          error={!!errors.confirm_password}
+          helperText={
+            errors.confirm_password ? errors.confirm_password.message : ''
+          }
+        />
+        <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            sx={{ my: 2 }}
+          >
+            Registrar Usuario
+          </Button>
+        </Box>
+        <Divider />
+        {children}
+      </Box>
+    </FormRegisterContainer>
   )
 }
 

@@ -1,4 +1,4 @@
-import { Box, Button, Typography, styled } from '@mui/material'
+import { Box, Button, Container, Typography, styled } from '@mui/material'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
 import Grid from '@mui/material/Grid2'
@@ -6,30 +6,17 @@ import { Layout } from '@/layouts/Layout'
 import FormLogin from '@/views/FormLogin'
 import FormRegister from '@/views/FormRegister'
 
-const FormGrid = styled(Grid)(({ theme }) => ({
+const FormBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  background: theme.palette.secondary.main,
-  '.gridImg': {
-    height: 'calc(100vh - 123px)',
-    backgroundImage: 'url(/images/bg-log1.png)',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    position: 'relative',
-    [theme.breakpoints.down('lg')]: {
-      height: '400px',
-      backgroundPosition: 'top',
-    },
-    [theme.breakpoints.down('sm')]: {
-      height: '150px',
-    },
-  },
-  '.gridForms': {
-    [theme.breakpoints.down('sm')]: {
-      height: 'calc(100vh - 250px)',
-    },
+  maxWidth: 600,
+  width: '100%',
+  margin: '0 auto',
+  height: 'calc(100vh - 100px)',
+
+  [theme.breakpoints.down('md')]: {
+    height: 'calc(100vh - 50px)',
   },
 }))
 
@@ -37,22 +24,20 @@ const Login: NextPage = () => {
   const [tab, setTab] = useState(0)
   return (
     <Layout>
-      <FormGrid container spacing={0}>
-        <Grid className='gridImg' size={{ xs: 12, lg: 6 }} />
-        <Grid className='gridForms' size={{ xs: 12, lg: 6 }}>
+      <Container maxWidth={'lg'}>
+        <FormBox>
           {tab === 0 && (
             <Box className={tab === 0 ? 'fade-in' : 'fade-out'}>
               <FormLogin>
-                <Box display={'flex'} alignItems={'center'}>
+                <Box display={'flex'} alignItems={'center'} mt={2}>
                   <Typography variant='body2' fontWeight={'700'}>
-                    No Account Yet?
+                    ¿No tienes cuenta aún?
                   </Typography>
                   <Button
-                    variant='text'
-                    className='textLink'
+                    variant='outlined'
                     onClick={() => setTab(1)}
                   >
-                    Create an Account
+                    Crear una cuenta
                   </Button>
                 </Box>
               </FormLogin>
@@ -63,21 +48,17 @@ const Login: NextPage = () => {
               <FormRegister>
                 <Box display={'flex'} alignItems={'center'}>
                   <Typography variant='body2' fontWeight={'700'}>
-                    Already have an account?
+                    ¿Ya tienes una cuenta?
                   </Typography>
-                  <Button
-                    variant='text'
-                    className='textLink'
-                    onClick={() => setTab(0)}
-                  >
-                    Login
+                  <Button variant='outlined' onClick={() => setTab(0)}>
+                    Iniciar Sesión
                   </Button>
                 </Box>
               </FormRegister>
             </Box>
           )}
-        </Grid>
-      </FormGrid>
+        </FormBox>
+      </Container>
     </Layout>
   )
 }
