@@ -8,6 +8,7 @@ export interface characterTypes {
   description: string
   image: string
   affiliation: string
+  isDefault?: boolean
 }
 
 export interface loginFormTypes {

@@ -46,21 +46,27 @@ export default function AddCharacterDialog({
   })
 
   const handleSubmit = () => {
-    onAdd({
-      id: Date.now(),
-      ...newCharacter,
-    } as characterTypes)
-    setNewCharacter({
-      name: '',
-      ki: '',
-      race: '',
-      image: '',
-    })
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile)
+      onAdd({
+        id: Date.now(),
+        ...newCharacter,
+      } as characterTypes)
+      setNewCharacter({
+        name: '',
+        ki: '',
+        race: '',
+        image: imageUrl,
+      })
+      setSelectedFile(null)
+    }
   }
 
   const handleFileChange = (event: any) => {
-    if (event.target.files[0]) {
+    if (event.target.files && event.target.files[0]) {
       setSelectedFile(event.target.files[0])
+      const imageUrl = URL.createObjectURL(event.target.files[0])
+      setNewCharacter({ ...newCharacter, image: imageUrl })
     }
   }
   console.log(selectedFile)
@@ -81,7 +87,6 @@ export default function AddCharacterDialog({
         <TextField
           fullWidth
           label='Ki'
-          type='number'
           value={newCharacter.ki}
           onChange={(e) =>
             setNewCharacter({ ...newCharacter, ki: e.target.value })
@@ -110,13 +115,13 @@ export default function AddCharacterDialog({
             startIcon={<CloudUploadIcon />}
           >
             <VisuallyHiddenInput
-              value={newCharacter.image}
               onChange={handleFileChange}
               type='file'
               accept='image/png, image/jpg, image/jpeg'
             />
           </Button>
         </Box>
+
         {/* <TextField
           fullWidth
           label='Image URL'

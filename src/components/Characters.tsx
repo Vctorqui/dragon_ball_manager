@@ -8,7 +8,7 @@ import {
   styled,
   Typography,
 } from '@mui/material'
-import { CardDB } from './ui/CardStyled'
+import { CardDB, CardDB2 } from './ui/CardStyled'
 import responsiveCharacters from '@/mocks/with-results.json'
 import theme from '../../theme/theme'
 import localforage from 'localforage'
@@ -17,6 +17,7 @@ import { characterTypes } from '@/types/types'
 import StylizedInput from './ui/InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import UserContext from '@/contexts/UserContext'
+import { useCharacters } from '@/hooks/useCharacters'
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
   minHeight: '100vh',
@@ -42,8 +43,8 @@ const CardContainer = styled(Box)(() => ({
 
 const ListOfCharacters = () => {
   const { currentUser } = useContext(UserContext)
-  const characters = responsiveCharacters.items
-  const hasCharacter = characters?.length > 0
+  // const characters = responsiveCharacters.items
+  // const hasCharacter = characters?.length > 0
   const [search, setSearch] = useState('')
   const [dbCharacters, setDbCharacters] = useState()
   const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
@@ -51,6 +52,7 @@ const ListOfCharacters = () => {
   const [selectedGender, setSelectedGender] = useState('')
   const raceOptions = ['Saiyan', 'Namekian', 'Human', 'Frieza Race', 'Android']
   const genderOptions = ['Male', 'Female', 'Unknown']
+  const { characters } = useCharacters()
 
   useEffect(() => {
     const loadCustomCharacters = async () => {
@@ -147,7 +149,12 @@ const ListOfCharacters = () => {
           </Typography>
           <Box className='card-grid'>
             {filteredCharacters.map((character) => (
-              <CardDB key={character.id} character={character} />
+              <CardDB2
+                key={character.id}
+                character={character}
+                onEdit={() => {}}
+                onDelete={() => {}}
+              />
             ))}
           </Box>
         </CardContainer>

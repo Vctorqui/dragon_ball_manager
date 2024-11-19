@@ -5,6 +5,7 @@ import { Layout } from '@/layouts/Layout'
 import { characterTypes } from '@/types/types'
 import { Logout } from '@mui/icons-material'
 import { Box, Button, Container, Grid2, Typography } from '@mui/material'
+import localforage from 'localforage'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 
@@ -15,18 +16,27 @@ const Dasboard = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   useEffect(() => {
-    fetchCharacters()
-  }, [])
-
-  const fetchCharacters = async () => {
-    try {
-      const response = await fetch('https://dragonball-api.com/api/characters')
-      const data = await response.json()
-      setCharacters(data.items.slice(0, 8)) // Limiting to 8 characters for demo
-    } catch (error) {
-      console.error('Error fetching characters:', error)
+    const checkAuth = async () => {
+      const user = await localforage.getItem('currentUser')
+      if (!user) {
+        router.push('/login')
+      }
     }
-  }
+    checkAuth()
+
+    const fetchCharacters = async () => {
+      try {
+        const response = await fetch(
+          'https://dragonball-api.com/api/characters'
+        )
+        const data = await response.json()
+        setCharacters(data.items.slice(0, 8)) // Limiting to 8 characters for demo
+      } catch (error) {
+        console.error('Error fetching characters:', error)
+      }
+    }
+    fetchCharacters()
+  }, [router])
 
   const handleAddCharacter = (newCharacter: characterTypes) => {
     setCharacters([...characters, { ...newCharacter, id: Date.now() }])
@@ -47,12 +57,11 @@ const Dasboard = () => {
 
   const handleLogout = async () => {
     logout()
-    router.push('/login')
   }
 
   return (
     <Layout>
-      <Container sx={{marginTop: 12}} maxWidth='lg'>
+      <Container sx={{ marginTop: 12 }} maxWidth='lg'>
         <Box
           display='flex'
           justifyContent='space-between'
@@ -101,6 +110,3 @@ const Dasboard = () => {
 }
 
 export default Dasboard
-
-
-

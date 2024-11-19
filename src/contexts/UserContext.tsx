@@ -1,82 +1,74 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import localforage from 'localforage'
 
-interface LoginFormInit {
+interface User {
+  id: string
   email: string
-  password: string
+  password?: string
   name: string
 }
 
 interface UserContextType {
-  isLogin: boolean
+  user: User | null
   login: (email: string, password: string) => Promise<void>
   register: (email: string, password: string, name: string) => Promise<void>
   logout: () => Promise<void>
   toggleLoginMode: () => void
-  currentUser: { email: string; name: string } | null
 }
 
 const UserContext = createContext<UserContextType | any>(null)
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [isLogin, setIsLogin] = useState(true)
-  const [currentUser, setCurrentUser] = useState<{
-    email: string
-    name: string
-  } | null>(null)
-  const router = useRouter()
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const loadCurrentUser = async () => {
-      const user = await localforage.getItem<{ email: string; name: string }>(
-        'currentUser'
-      )
-      if (user) {
-        setCurrentUser(user)
+      const savedUser = await localforage.getItem<User>('currentUser')
+      if (savedUser) {
+        setUser(savedUser)
       }
     }
     loadCurrentUser()
   }, [])
 
   const login = async (email: string, password: string) => {
-    const users = (await localforage.getItem<LoginFormInit[]>('users')) || []
+    const users = (await localforage.getItem<User[]>('users')) || []
     const user = users.find((u) => u.email === email && u.password === password)
-
-    if (user) {
-      await localforage.setItem('currentUser', {
-        email: user.email,
-        name: user.name,
-      })
-      setCurrentUser({ email: user.email, name: user.name })
-      router.push('dashboard')
-    } else {
-      alert('Invalid credentials')
+    if (!user) {
+      throw new Error('Invalid credentials')
     }
+    const { password: _, ...userWithoutPassword } = user
+    setUser(userWithoutPassword)
+    await localforage.setItem('user', userWithoutPassword)
   }
 
-  const register = async (email: string, password: string, name: string) => {
-    const users = (await localforage.getItem<LoginFormInit[]>('users')) || []
-    await localforage.setItem('users', [...users, { email, password, name }])
-    setIsLogin(true)
+  const register = async (name: string, email: string, password: string) => {
+    const users = (await localforage.getItem<User[]>('users')) || []
+    if (users.some((u) => u.email === email)) {
+      throw new Error('Email already exists')
+    }
+    const newUser = {
+      id: Math.random().toString(36).slice(2, 9),
+      name,
+      email,
+      password,
+    }
+    await localforage.setItem('users', [...users, newUser])
+    const { password: _, ...userWithoutPassword } = newUser
+    setUser(userWithoutPassword)
+    await localforage.setItem('user', userWithoutPassword)
   }
 
   const logout = async () => {
-    setCurrentUser(null)
-    await localforage.removeItem('currentUser')
-  }
-
-  const toggleLoginMode = () => {
-    setIsLogin(!isLogin)
+    setUser(null)
+    await localforage.removeItem('user')
   }
 
   const globalState = {
-    isLogin,
+    user,
     login,
     logout,
     register,
-    toggleLoginMode,
-    currentUser,
   }
 
   return (

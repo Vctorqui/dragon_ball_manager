@@ -1,3 +1,4 @@
+import UserContext from '@/contexts/UserContext'
 import { characterTypes } from '@/types/types'
 import { Delete, Edit } from '@mui/icons-material'
 import {
@@ -19,7 +20,7 @@ import {
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 interface cardItemsProps {
   character: any
@@ -144,6 +145,7 @@ export const CardDB2 = ({
 }: CharacterCardProps) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [editedCharacter, setEditedCharacter] = useState(character)
+  const { isLogin } = useContext(UserContext)
 
   const handleEditSubmit = () => {
     onEdit(editedCharacter)
@@ -153,12 +155,19 @@ export const CardDB2 = ({
     <>
       <CardStyled>
         <Box sx={{ p: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          <IconButton onClick={() => setIsEditDialogOpen(true)} color='primary'>
-            <Edit />
-          </IconButton>
-          <IconButton onClick={() => onDelete(character.id)} color='error'>
-            <Delete />
-          </IconButton>
+          {!isLogin && (
+            <>
+              <IconButton
+                onClick={() => setIsEditDialogOpen(true)}
+                color='primary'
+              >
+                <Edit />
+              </IconButton>
+              <IconButton onClick={() => onDelete(character.id)} color='error'>
+                <Delete />
+              </IconButton>
+            </>
+          )}
         </Box>
         <Box className='card-content'>
           <Image

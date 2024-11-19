@@ -5,6 +5,7 @@ import { Layout } from '@/layouts/Layout'
 import { loginFormTypes } from '@/types/types'
 import { loginFormInit } from '@/utils/const'
 import { Box, Button, Container, Grid2, styled } from '@mui/material'
+import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 
 const FormGrid = styled(Grid2)(({ theme }) => ({
@@ -37,6 +38,7 @@ const FormGrid = styled(Grid2)(({ theme }) => ({
 const UserLogForm = () => {
   const { isLogin, login, register, toggleLoginMode } = useContext(UserContext)
   const [formLogin, setFormLogin] = useState<loginFormTypes>(loginFormInit)
+  const router = useRouter()
 
   const handleChange = (event: any) => {
     let { name, value } = event.target
@@ -48,10 +50,12 @@ const UserLogForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (isLogin) {
+    try {
       await login(formLogin.email, formLogin.password)
-    } else {
-      await register(formLogin.email, formLogin.password, formLogin.name)
+      alert('login')
+      router.push('/dashboard')
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -62,7 +66,7 @@ const UserLogForm = () => {
         <Grid2 className='gridForms' size={{ xs: 12, lg: 6 }}>
           <Container maxWidth='lg'>
             <Box component='form' onSubmit={handleSubmit}>
-              {!isLogin && (
+              {isLogin && (
                 <StylizedInput
                   name='name'
                   value={formLogin.name}
