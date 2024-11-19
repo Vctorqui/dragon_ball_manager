@@ -33,13 +33,13 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string) => {
     const users = (await localforage.getItem<User[]>('users')) || []
-    const user = users.find((u) => u.email === email && u.password === password)
-    if (!user) {
+    const foundUser = users.find((u) => u.email === email && u.password === password)
+    if (!foundUser) {
       throw new Error('Invalid credentials')
     }
-    const { password: _, ...userWithoutPassword } = user
+    const { password: _, ...userWithoutPassword } = foundUser
     setUser(userWithoutPassword)
-    await localforage.setItem('user', userWithoutPassword)
+    await localforage.setItem('currentUser', userWithoutPassword)
   }
 
   const register = async (name: string, email: string, password: string) => {
@@ -56,12 +56,12 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     await localforage.setItem('users', [...users, newUser])
     const { password: _, ...userWithoutPassword } = newUser
     setUser(userWithoutPassword)
-    await localforage.setItem('user', userWithoutPassword)
+    await localforage.setItem('currentUser', userWithoutPassword)
   }
 
   const logout = async () => {
     setUser(null)
-    await localforage.removeItem('user')
+    await localforage.removeItem('currentUser')
   }
 
   const globalState = {

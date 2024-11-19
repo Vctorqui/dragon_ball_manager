@@ -11,19 +11,11 @@ import { useContext, useEffect, useState } from 'react'
 
 const Dasboard = () => {
   const router = useRouter()
-  const { logout, currentUser } = useContext(UserContext)
+  const { user, logout } = useContext(UserContext)
   const [characters, setCharacters] = useState<characterTypes[]>([])
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const user = await localforage.getItem('currentUser')
-      if (!user) {
-        router.push('/login')
-      }
-    }
-    checkAuth()
-
     const fetchCharacters = async () => {
       try {
         const response = await fetch(
@@ -37,6 +29,16 @@ const Dasboard = () => {
     }
     fetchCharacters()
   }, [router])
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/auth/login')
+    }
+  }, [user, router])
+
+  if (!user) {
+    return null
+  }
 
   const handleAddCharacter = (newCharacter: characterTypes) => {
     setCharacters([...characters, { ...newCharacter, id: Date.now() }])
@@ -68,7 +70,7 @@ const Dasboard = () => {
           alignItems='center'
           mb={4}
         >
-          <Typography variant='h1'>Bienvenido, {currentUser?.name}</Typography>
+          <Typography variant='h1'>Bienvenido, {user?.name}</Typography>
           <Button
             variant='contained'
             color='error'

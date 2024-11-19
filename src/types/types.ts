@@ -14,5 +14,12 @@ export interface characterTypes {
 export interface loginFormTypes {
   email: string
   password: string
+  // name: string
+}
+
+export interface registerFormTypes {
   name: string
+  email: string
+  password: string
+  password_confirm: string
 }

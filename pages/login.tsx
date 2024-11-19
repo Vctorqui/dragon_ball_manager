@@ -1,14 +1,12 @@
-import StylizedInput from '@/components/ui/InputStyled'
-import UserContext from '@/contexts/UserContext'
+import { Box, Button, Typography, styled } from '@mui/material'
+import { NextPage } from 'next'
+import React, { useState } from 'react'
+import Grid from '@mui/material/Grid2'
 import { Layout } from '@/layouts/Layout'
+import FormLogin from '@/views/FormLogin'
+import FormRegister from '@/views/FormRegister'
 
-import { loginFormTypes } from '@/types/types'
-import { loginFormInit } from '@/utils/const'
-import { Box, Button, Container, Grid2, styled } from '@mui/material'
-import { useRouter } from 'next/router'
-import React, { useContext, useState } from 'react'
-
-const FormGrid = styled(Grid2)(({ theme }) => ({
+const FormGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -35,70 +33,53 @@ const FormGrid = styled(Grid2)(({ theme }) => ({
   },
 }))
 
-const UserLogForm = () => {
-  const { isLogin, login, register, toggleLoginMode } = useContext(UserContext)
-  const [formLogin, setFormLogin] = useState<loginFormTypes>(loginFormInit)
-  const router = useRouter()
-
-  const handleChange = (event: any) => {
-    let { name, value } = event.target
-    setFormLogin({
-      ...formLogin,
-      [name]: value,
-    })
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      await login(formLogin.email, formLogin.password)
-      alert('login')
-      router.push('/dashboard')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
+const Login: NextPage = () => {
+  const [tab, setTab] = useState(0)
   return (
     <Layout>
       <FormGrid container spacing={0}>
-        <Grid2 className='gridImg' size={{ xs: 12, lg: 6 }} />
-        <Grid2 className='gridForms' size={{ xs: 12, lg: 6 }}>
-          <Container maxWidth='lg'>
-            <Box component='form' onSubmit={handleSubmit}>
-              {isLogin && (
-                <StylizedInput
-                  name='name'
-                  value={formLogin.name}
-                  onChange={handleChange}
-                  placeholder='Name'
-                  required
-                />
-              )}
-              <StylizedInput
-                name='email'
-                value={formLogin.email}
-                onChange={handleChange}
-                placeholder='Email'
-                required
-              />
-              <StylizedInput
-                name='password'
-                value={formLogin.password}
-                onChange={handleChange}
-                placeholder='Password'
-                required
-              />
-              <Button type='submit'>{isLogin ? 'Login' : 'Register'}</Button>
-              <Button onClick={toggleLoginMode}>
-                {isLogin ? 'Switch to Register' : 'Switch to Login'}
-              </Button>
+        <Grid className='gridImg' size={{ xs: 12, lg: 6 }} />
+        <Grid className='gridForms' size={{ xs: 12, lg: 6 }}>
+          {tab === 0 && (
+            <Box className={tab === 0 ? 'fade-in' : 'fade-out'}>
+              <FormLogin>
+                <Box display={'flex'} alignItems={'center'}>
+                  <Typography variant='body2' fontWeight={'700'}>
+                    No Account Yet?
+                  </Typography>
+                  <Button
+                    variant='text'
+                    className='textLink'
+                    onClick={() => setTab(1)}
+                  >
+                    Create an Account
+                  </Button>
+                </Box>
+              </FormLogin>
             </Box>
-          </Container>
-        </Grid2>
+          )}
+          {tab === 1 && (
+            <Box className={tab === 1 ? 'fade-in' : 'fade-out'}>
+              <FormRegister>
+                <Box display={'flex'} alignItems={'center'}>
+                  <Typography variant='body2' fontWeight={'700'}>
+                    Already have an account?
+                  </Typography>
+                  <Button
+                    variant='text'
+                    className='textLink'
+                    onClick={() => setTab(0)}
+                  >
+                    Login
+                  </Button>
+                </Box>
+              </FormRegister>
+            </Box>
+          )}
+        </Grid>
       </FormGrid>
     </Layout>
   )
 }
 
-export default UserLogForm
+export default Login
