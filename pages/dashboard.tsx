@@ -1,5 +1,5 @@
 import AddCharacterDialog from '@/components/AddCharacterModal'
-import { CharacterForm } from '@/components/CharacterForm'
+import CharacterForm from '@/components/CharacterForm'
 import { CharacterList } from '@/components/CharacterList'
 import CustomDialog from '@/components/StyledDialog'
 import { CardDB, CardDB2 } from '@/components/ui/CardStyled'
@@ -114,23 +114,23 @@ const Dasboard = () => {
 export default Dasboard
 
 {
-  /* Add New Character
-        </Button>
-        <Grid2 container spacing={3}>
-          {characters.map((character) => (
-            <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={character.id}>
-              <CardDB2
-                character={character}
-                onEdit={handleEditCharacter}
-                onDelete={handleDeleteCharacter}
-              />
-            </Grid2>
-          ))}
-        </Grid2>
-
-        <AddCharacterDialog
-          open={isAddDialogOpen}
-          onClose={() => setIsAddDialogOpen(false)}
-          onAdd={handleAddCharacter}
+  /* Add New Character 
+        </Button> 
+        <Grid2 container spacing={3}> 
+          {characters.map((character) => ( 
+            <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={character.id}> 
+              <CardDB2 
+                character={character} 
+                onEdit={handleEditCharacter} 
+                onDelete={handleDeleteCharacter} 
+              /> 
+            </Grid2> 
+          ))} 
+        </Grid2> 
+ 
+        <AddCharacterDialog 
+          open={isAddDialogOpen} 
+          onClose={() => setIsAddDialogOpen(false)} 
+          onAdd={handleAddCharacter} 
         /> */
 }

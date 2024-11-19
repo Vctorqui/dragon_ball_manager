@@ -1,16 +1,12 @@
-'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 import localforage from 'localforage'
-import { Box, Button, styled, Typography } from '@mui/material'
+import { Box, Button, styled } from '@mui/material'
 import StylizedInput from './ui/InputStyled'
 import { characterSchema, CharacterSchema } from '@/utils/const'
-import { enqueueSnackbar } from 'notistack'
 import theme from '../../theme/theme'
 import { CloudUpload } from '@mui/icons-material'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -26,7 +22,7 @@ const VisuallyHiddenInput = styled('input')({
 
 interface CharacterFormProps {
   character?: any
-  onSuccess?: () => void
+  onSuccess?: (updatedCharacters: any[]) => void // Especifica que puede recibir un array de personajes
 }
 
 export default function CharacterForm({
@@ -36,8 +32,20 @@ export default function CharacterForm({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm<CharacterSchema>({ resolver: zodResolver(characterSchema) })
+  } = useForm<CharacterSchema>({
+    resolver: zodResolver(characterSchema),
+    defaultValues: character || {},
+  })
+
+  useEffect(() => {
+    if (character) {
+      Object.keys(character).forEach((key) => {
+        setValue(key as keyof CharacterSchema, character[key])
+      })
+    }
+  }, [character, setValue])
 
   const onSubmit = async (data: CharacterSchema) => {
     const characters = (await localforage.getItem<any[]>('characters')) || []
@@ -56,7 +64,7 @@ export default function CharacterForm({
       })
     }
     await localforage.setItem('characters', characters)
-    onSuccess?.()
+    onSuccess?.(characters)
   }
 
   return (
@@ -66,12 +74,8 @@ export default function CharacterForm({
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      {/* <Typography textAlign={'center'} variant='h6' gutterBottom>
-        Iniciar Sesión
-      </Typography> */}
       <StylizedInput
         fullWidth
-        // label='Correo'
         placeholder='E.g. Goku'
         {...register('name')}
         error={!!errors.name}
@@ -79,7 +83,6 @@ export default function CharacterForm({
       />
       <StylizedInput
         fullWidth
-        // label='Contraseña'
         placeholder='E.g. Male'
         {...register('gender')}
         error={!!errors.gender}
@@ -87,7 +90,6 @@ export default function CharacterForm({
       />
       <StylizedInput
         fullWidth
-        // label='Contraseña'
         placeholder='E.g. Saiyan'
         {...register('race')}
         error={!!errors.race}
@@ -108,7 +110,7 @@ export default function CharacterForm({
           <VisuallyHiddenInput
             {...register('image')}
             type='file'
-            accept='image/png, image/jpg, image/jpeg'
+            accept='image/*'
           />
         </Button>
       </Box>

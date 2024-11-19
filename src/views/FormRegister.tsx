@@ -73,7 +73,7 @@ const FormRegister = ({ children }: any) => {
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
-        {/* <StylizedInput
+        <StylizedInput
           type='password'
           required
           placeholder='***********'
@@ -83,7 +83,7 @@ const FormRegister = ({ children }: any) => {
           helperText={
             errors.confirm_password ? errors.confirm_password.message : ''
           }
-        /> */}
+        />
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Button
             type='submit'
