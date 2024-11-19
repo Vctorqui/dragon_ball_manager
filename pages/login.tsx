@@ -1,12 +1,41 @@
 import StylizedInput from '@/components/ui/InputStyled'
-import { useAuth } from '@/contexts/UserContext'
+import UserContext from '@/contexts/UserContext'
+import { Layout } from '@/layouts/Layout'
+
 import { loginFormTypes } from '@/types/types'
 import { loginFormInit } from '@/utils/const'
-import { Box, Button } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, Button, Container, Grid2, styled } from '@mui/material'
+import React, { useContext, useState } from 'react'
+
+const FormGrid = styled(Grid2)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  background: theme.palette.secondary.main,
+  '.gridImg': {
+    height: 'calc(100vh - 123px)',
+    backgroundImage: 'url(/images/bg-log1.png)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    position: 'relative',
+    [theme.breakpoints.down('lg')]: {
+      height: '400px',
+      backgroundPosition: 'top',
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: '150px',
+    },
+  },
+  '.gridForms': {
+    [theme.breakpoints.down('sm')]: {
+      height: 'calc(100vh - 250px)',
+    },
+  },
+}))
 
 const UserLogForm = () => {
-  const { isLogin, login, register, toggleLoginMode } = useAuth()
+  const { isLogin, login, register, toggleLoginMode } = useContext(UserContext)
   const [formLogin, setFormLogin] = useState<loginFormTypes>(loginFormInit)
 
   const handleChange = (event: any) => {
@@ -27,35 +56,44 @@ const UserLogForm = () => {
   }
 
   return (
-    <Box component='form' onSubmit={handleSubmit}>
-      {!isLogin && (
-        <StylizedInput
-          name='name'
-          value={formLogin.name}
-          onChange={handleChange}
-          placeholder='Name'
-          required
-        />
-      )}
-      <StylizedInput
-        name='email'
-        value={formLogin.email}
-        onChange={handleChange}
-        placeholder='Email'
-        required
-      />
-      <StylizedInput
-        name='password'
-        value={formLogin.password}
-        onChange={handleChange}
-        placeholder='Password'
-        required
-      />
-      <Button type='submit'>{isLogin ? 'Login' : 'Register'}</Button>
-      <Button onClick={toggleLoginMode}>
-        {isLogin ? 'Switch to Register' : 'Switch to Login'}
-      </Button>
-    </Box>
+    <Layout>
+      <FormGrid container spacing={0}>
+        <Grid2 className='gridImg' size={{ xs: 12, lg: 6 }} />
+        <Grid2 className='gridForms' size={{ xs: 12, lg: 6 }}>
+          <Container maxWidth='lg'>
+            <Box component='form' onSubmit={handleSubmit}>
+              {!isLogin && (
+                <StylizedInput
+                  name='name'
+                  value={formLogin.name}
+                  onChange={handleChange}
+                  placeholder='Name'
+                  required
+                />
+              )}
+              <StylizedInput
+                name='email'
+                value={formLogin.email}
+                onChange={handleChange}
+                placeholder='Email'
+                required
+              />
+              <StylizedInput
+                name='password'
+                value={formLogin.password}
+                onChange={handleChange}
+                placeholder='Password'
+                required
+              />
+              <Button type='submit'>{isLogin ? 'Login' : 'Register'}</Button>
+              <Button onClick={toggleLoginMode}>
+                {isLogin ? 'Switch to Register' : 'Switch to Login'}
+              </Button>
+            </Box>
+          </Container>
+        </Grid2>
+      </FormGrid>
+    </Layout>
   )
 }
 

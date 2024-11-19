@@ -1,5 +1,4 @@
-// src/context/AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useState, ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import localforage from 'localforage'
 
@@ -8,26 +7,37 @@ interface LoginFormInit {
   password: string
   name: string
 }
-// const loginFormInit: LoginFormInit = { email: '', password: '', name: '' }
 
 interface UserContextType {
   isLogin: boolean
   login: (email: string, password: string) => Promise<void>
   register: (email: string, password: string, name: string) => Promise<void>
-  logout: () => void
+  logout: () => Promise<void>
   toggleLoginMode: () => void
   currentUser: { email: string; name: string } | null
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined)
+const UserContext = createContext<UserContextType | any>(null)
 
-export const UserProvider = ({ children }: { children: ReactNode }) => {
+const UserProvider = ({ children }: { children: ReactNode }) => {
   const [isLogin, setIsLogin] = useState(true)
   const [currentUser, setCurrentUser] = useState<{
     email: string
     name: string
   } | null>(null)
   const router = useRouter()
+
+  useEffect(() => {
+    const loadCurrentUser = async () => {
+      const user = await localforage.getItem<{ email: string; name: string }>(
+        'currentUser'
+      )
+      if (user) {
+        setCurrentUser(user)
+      }
+    }
+    loadCurrentUser()
+  }, [])
 
   const login = async (email: string, password: string) => {
     const users = (await localforage.getItem<LoginFormInit[]>('users')) || []
@@ -53,26 +63,26 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     setCurrentUser(null)
-    await localforage.removeItem('user')
+    await localforage.removeItem('currentUser')
   }
 
   const toggleLoginMode = () => {
     setIsLogin(!isLogin)
   }
 
+  const globalState = {
+    isLogin,
+    login,
+    logout,
+    register,
+    toggleLoginMode,
+    currentUser,
+  }
+
   return (
-    <UserContext.Provider
-      value={{ isLogin, login, logout, register, toggleLoginMode, currentUser }}
-    >
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={globalState}>{children}</UserContext.Provider>
   )
 }
 
-export const useAuth = () => {
-  const context = useContext(UserContext)
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
-}
+export { UserProvider }
+export default UserContext

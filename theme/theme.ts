@@ -22,6 +22,7 @@ const colors = {
 const theme = responsiveFontSizes(
   createTheme({
     palette: {
+      mode: 'dark',
       primary: {
         main: colors.primary.main,
         light: colors.primary.light,
@@ -33,6 +34,10 @@ const theme = responsiveFontSizes(
       text: {
         primary: colors.text.primary,
         secondary: colors.text.secondary,
+      },
+      background: {
+        default: '#121212',
+        paper: '#1e1e1e',
       },
     },
     typography: {

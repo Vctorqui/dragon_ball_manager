@@ -12,11 +12,11 @@ import { CardDB } from './ui/CardStyled'
 import responsiveCharacters from '@/mocks/with-results.json'
 import theme from '../../theme/theme'
 import localforage from 'localforage'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { characterTypes } from '@/types/types'
 import StylizedInput from './ui/InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-
+import UserContext from '@/contexts/UserContext'
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
   minHeight: '100vh',
@@ -41,6 +41,7 @@ const CardContainer = styled(Box)(() => ({
 }))
 
 const ListOfCharacters = () => {
+  const { currentUser } = useContext(UserContext)
   const characters = responsiveCharacters.items
   const hasCharacter = characters?.length > 0
   const [search, setSearch] = useState('')
@@ -140,6 +141,9 @@ const ListOfCharacters = () => {
         <CardContainer>
           <Typography variant='h2' fontWeight={200}>
             Personajes <span style={{ color: '#E63730' }}>Z</span>
+          </Typography>
+          <Typography variant='h2' fontWeight={200}>
+            {currentUser?.name}
           </Typography>
           <Box className='card-grid'>
             {filteredCharacters.map((character) => (

@@ -1,3 +1,5 @@
+import { characterTypes } from '@/types/types'
+import { Delete, Edit } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -6,16 +8,29 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
   Stack,
   styled,
+  TextField,
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface cardItemsProps {
   character: any
   className?: string
   onClick?: any
+}
+
+interface CharacterCardProps {
+  character: characterTypes
+  onEdit: (character: characterTypes) => void
+  onDelete: (id: number) => void
 }
 
 const CardStyled = styled(Box)((theme) => ({
@@ -119,5 +134,121 @@ export const CardDB = ({ className, onClick, character }: cardItemsProps) => {
         </Stack>
       </Box>
     </CardStyled>
+  )
+}
+
+export const CardDB2 = ({
+  character,
+  onEdit,
+  onDelete,
+}: CharacterCardProps) => {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+  const [editedCharacter, setEditedCharacter] = useState(character)
+
+  const handleEditSubmit = () => {
+    onEdit(editedCharacter)
+    setIsEditDialogOpen(false)
+  }
+  return (
+    <>
+      <CardStyled>
+        <Box sx={{ p: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <IconButton onClick={() => setIsEditDialogOpen(true)} color='primary'>
+            <Edit />
+          </IconButton>
+          <IconButton onClick={() => onDelete(character.id)} color='error'>
+            <Delete />
+          </IconButton>
+        </Box>
+        <Box className='card-content'>
+          <Image
+            src={character.image}
+            className='card-image'
+            width={150}
+            height={270}
+            alt={character.name}
+          />
+          <Stack justifyContent={'center'} alignItems={'center'} height={120}>
+            <Stack
+              spacing={1}
+              // justifyContent={'flex-start'}
+              alignItems={'center'}
+              className='first-content'
+            >
+              <h2 className='card-title'>{character.name}</h2>
+              <p className='card-details'>
+                <strong>Raza:</strong> {character.race}
+              </p>
+              <p className='card-details'>
+                <strong>Genero:</strong> {character.gender}
+              </p>
+            </Stack>
+            <Stack
+              spacing={1}
+              // justifyContent={'flex-start'}
+              alignItems={'center'}
+              className='second-content'
+            >
+              <h2 className='card-title'>{character.name}</h2>
+              <p className='card-details'>
+                <strong>Power level:</strong> {character.ki}
+              </p>
+              <p className='card-details'>
+                <strong>Full Power Level:</strong> {character.maxKi}
+              </p>
+            </Stack>
+          </Stack>
+        </Box>
+      </CardStyled>
+      <Dialog
+        open={isEditDialogOpen}
+        onClose={() => setIsEditDialogOpen(false)}
+      >
+        <DialogTitle>Edit Character</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            label='Name'
+            value={editedCharacter.name}
+            onChange={(e) =>
+              setEditedCharacter({ ...editedCharacter, name: e.target.value })
+            }
+            margin='normal'
+          />
+          <TextField
+            fullWidth
+            label='Ki'
+            value={editedCharacter.ki}
+            onChange={(e) =>
+              setEditedCharacter({ ...editedCharacter, ki: e.target.value })
+            }
+          />
+          <TextField
+            fullWidth
+            label='Race'
+            value={editedCharacter.race}
+            onChange={(e) =>
+              setEditedCharacter({ ...editedCharacter, race: e.target.value })
+            }
+            margin='normal'
+          />
+          <TextField
+            fullWidth
+            label='Image URL'
+            value={editedCharacter.image}
+            onChange={(e) =>
+              setEditedCharacter({ ...editedCharacter, image: e.target.value })
+            }
+            margin='normal'
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
+          <Button onClick={handleEditSubmit} variant='contained'>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
