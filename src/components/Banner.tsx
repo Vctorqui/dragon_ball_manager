@@ -44,10 +44,6 @@ const BannerContainer = styled(Box)(() => ({
     [theme.breakpoints.down('md')]: {
       alignItems: 'center',
     },
-    '.loginBtn': {
-      display: 'flex',
-      gap: '10px',
-    },
     '.banner-text': {
       textShadow: '0 4px 5px #000000b3',
     },
