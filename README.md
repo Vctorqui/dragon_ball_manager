@@ -238,3 +238,8 @@ Start the server
 ## Authors
 
 - [@VictorQuiñones](https://github.com/Vctorqui)
+
+## Resources
+
+- [Banner: r/dbz](https://www.reddit.com/r/dbz/comments/19e6urm/i_made_an_animated_banner_again_and_my_live/)
+- [Font Generator](https://es.textstudio.com/)
