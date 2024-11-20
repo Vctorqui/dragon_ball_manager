@@ -30,7 +30,12 @@ export const registerSchema = z
     password: z
       .string()
       .min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
-    confirm_password: z.string(),
+    confirm_password: z
+      .string()
+      .min(6, {
+        message:
+          'La confirmación de la contraseña debe tener al menos 6 caracteres',
+      }),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: 'Las contraseñas no coinciden',

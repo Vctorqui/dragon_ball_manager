@@ -1,4 +1,3 @@
-import StylizedInput from '@/components/ui/InputStyled'
 import UserContext from '@/contexts/UserContext'
 import { registerSchema, RegisterSchema } from '@/utils/const'
 import { Box, Button, Divider, styled, Typography } from '@mui/material'
@@ -7,6 +6,7 @@ import { enqueueSnackbar } from 'notistack'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import StylizedInput from '@/components/InputStyled'
 
 const FormRegisterContainer = styled(Box)(({ theme }) => ({}))
 
@@ -40,11 +40,7 @@ const FormRegister = ({ children }: any) => {
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
-        <Typography
-          textAlign={'center'}
-          variant='h3'
-          gutterBottom
-        >
+        <Typography textAlign={'center'} variant='h3' gutterBottom>
           Register
         </Typography>
         <StylizedInput

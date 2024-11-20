@@ -1,4 +1,3 @@
-import StylizedInput from '@/components/ui/InputStyled'
 import UserContext from '@/contexts/UserContext'
 import { loginSchema, LoginSchema } from '@/utils/const'
 import { Box, Button, Divider, styled, Typography } from '@mui/material'
@@ -7,6 +6,7 @@ import { enqueueSnackbar } from 'notistack'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import StylizedInput from '@/components/InputStyled'
 
 const FormLoginContainer = styled(Box)(({ theme }) => ({}))
 
@@ -23,7 +23,7 @@ const FormLogin = ({ children }: any) => {
     try {
       const { email, password } = data
       await login(email, password)
-      enqueueSnackbar(`Bienvenido nuevamente,${user?.name}`, {
+      enqueueSnackbar(`Bienvenido nuevamente, ${user?.name}`, {
         variant: 'success',
       })
       router.push('/dashboard')

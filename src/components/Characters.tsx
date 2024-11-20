@@ -7,12 +7,12 @@ import {
   styled,
   Typography,
 } from '@mui/material'
-import { CardDB } from './ui/CardStyled'
+import { CardDB } from './CardStyled'
 import theme from '../../theme/theme'
 import localforage from 'localforage'
 import { useContext, useEffect, useState } from 'react'
 import { characterTypes } from '@/types/types'
-import StylizedInput from './ui/InputStyled'
+import StylizedInput from './InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import UserContext from '@/contexts/UserContext'
 import { useCharacters } from '@/hooks/useCharacters'

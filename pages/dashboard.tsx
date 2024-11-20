@@ -1,14 +1,10 @@
-import AddCharacterDialog from '@/components/AddCharacterModal'
 import CharacterForm from '@/components/CharacterForm'
 import { CharacterList } from '@/components/CharacterList'
 import CustomDialog from '@/components/StyledDialog'
-import { CardDB, CardDB2 } from '@/components/ui/CardStyled'
 import UserContext from '@/contexts/UserContext'
 import { Layout } from '@/layouts/Layout'
-import { characterTypes } from '@/types/types'
 import { Logout } from '@mui/icons-material'
-import { Box, Button, Container, Grid2, Typography } from '@mui/material'
-import localforage from 'localforage'
+import { Box, Button, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
 import { useContext, useEffect, useState } from 'react'
@@ -17,23 +13,6 @@ const Dasboard = () => {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const { user, logout } = useContext(UserContext)
-  const [characters, setCharacters] = useState<characterTypes[]>([])
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
-
-  // useEffect(() => {
-  //   const fetchCharacters = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         'https://dragonball-api.com/api/characters'
-  //       )
-  //       const data = await response.json()
-  //       setCharacters(data.items.slice(0, 8)) // Limiting to 8 characters for demo
-  //     } catch (error) {
-  //       console.error('Error fetching characters:', error)
-  //     }
-  //   }
-  //   fetchCharacters()
-  // }, [router])
 
   useEffect(() => {
     if (!user) {
@@ -44,23 +23,6 @@ const Dasboard = () => {
   if (!user) {
     return null
   }
-
-  // const handleAddCharacter = (newCharacter: characterTypes) => {
-  //   setCharacters([...characters, { ...newCharacter, id: Date.now() }])
-  //   setIsAddDialogOpen(false)
-  // }
-
-  // const handleEditCharacter = (editedCharacter: characterTypes) => {
-  //   setCharacters(
-  //     characters.map((char) =>
-  //       char.id === editedCharacter.id ? editedCharacter : char
-  //     )
-  //   )
-  // }
-
-  // const handleDeleteCharacter = (id: number) => {
-  //   setCharacters(characters.filter((char) => char.id !== id))
-  // }
 
   const handleLogout = async () => {
     logout()
@@ -95,7 +57,7 @@ const Dasboard = () => {
         >
           Add Characther
         </Button>
-        <CustomDialog title='Añadir personaje' open={open}>
+        <CustomDialog open={open} onClose={() => setOpen(false)}>
           <CharacterForm
             onSuccess={() => {
               setOpen(false)
@@ -112,6 +74,38 @@ const Dasboard = () => {
 }
 
 export default Dasboard
+
+// useEffect(() => {
+//   const fetchCharacters = async () => {
+//     try {
+//       const response = await fetch(
+//         'https://dragonball-api.com/api/characters'
+//       )
+//       const data = await response.json()
+//       setCharacters(data.items.slice(0, 8)) // Limiting to 8 characters for demo
+//     } catch (error) {
+//       console.error('Error fetching characters:', error)
+//     }
+//   }
+//   fetchCharacters()
+// }, [router])
+
+// const handleAddCharacter = (newCharacter: characterTypes) => {
+//   setCharacters([...characters, { ...newCharacter, id: Date.now() }])
+//   setIsAddDialogOpen(false)
+// }
+
+// const handleEditCharacter = (editedCharacter: characterTypes) => {
+//   setCharacters(
+//     characters.map((char) =>
+//       char.id === editedCharacter.id ? editedCharacter : char
+//     )
+//   )
+// }
+
+// const handleDeleteCharacter = (id: number) => {
+//   setCharacters(characters.filter((char) => char.id !== id))
+// }
 
 {
   /* Add New Character 

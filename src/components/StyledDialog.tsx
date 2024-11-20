@@ -68,8 +68,8 @@ const CustomDialog = ({
       <DialogTitle
         align='center'
         sx={{
+          paddingY: 2,
           position: 'relative',
-          padding: 0,
           display: 'flex',
           alignItems: 'center',
         }}
