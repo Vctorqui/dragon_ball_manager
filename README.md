@@ -2,6 +2,9 @@
 
 A web application where you can find your favorite characters. You can register to create, edit and if you don't like it delete your own card.
 
+Visit the web:
+- [Dragon Ball Super Manager](https://dragonballmanager.netlify.app/)
+
 ## Dragon ball API Reference
 
 #### Get characters
@@ -35,7 +38,7 @@ A web application where you can find your favorite characters. You can register 
 Next.js: Page Routes
 
 - Next.js allows you to organize paths in a clear and predictable way using the Pages Router system. Each file in the pages folder is automatically converted into an accessible route, making navigation and route management easy. The use of pages routing is ideal for small to medium-sized applications where simplicity and convention are preferable to configuration. Normally in a more robust application it is advisable to use App Routes.
-  Also it has simple navigation with useRouter allows you to perform programmatic navigation within your Next.js application. This means that you can redirect users to different pages in response to events, such as after a form submission.
+- Also it has simple navigation with useRouter allows you to perform programmatic navigation within your Next.js application. This means that you can redirect users to different pages in response to events, such as after a form submission.
 
 ```javascript
 /pages
@@ -44,6 +47,23 @@ Next.js: Page Routes
   blog/
     [id].js     // Ruta '/blog/:id'
 
+```
+Structure of this project
+
+```javascript
+
+/pages
+_app.tsx       // Control Global State of web
+_document.tsx  // Useful for SEO
+index.tsx      // Ruta '/'
+dashboard.tsx  // Ruta '/dashboard'
+login.tsx      // Ruta '/login'
+
+/public        // Assets like images, fonts, videos, etc
+
+/src           // components, contexts, hooks, types, utils, views
+
+/theme         // Global theme of the web
 ```
 
 Material UI
