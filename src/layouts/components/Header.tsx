@@ -1,10 +1,4 @@
-import {
-  AppBar,
-  Box,
-  Container,
-  Toolbar,
-  styled,
-} from '@mui/material'
+import { AppBar, Box, Container, Toolbar, styled } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -27,12 +21,16 @@ const AppBarContainer = styled(AppBar)(({ theme }) => ({
     },
   },
 
-  '.returnLink': {
-    color: theme.palette.common.white,
+  '.link-item': {
+    fontWeight: 'bold',
+    color: theme.palette.secondary.light,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     gap: theme.spacing(1),
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
   },
 }))
 
@@ -44,26 +42,26 @@ export const Header = () => {
     if (!user) {
       if (router.pathname === '/login') {
         return (
-          <Link className='returnLink' href='/'>
+          <Link className='link-item' href='/'>
             Regresar
           </Link>
         )
       }
       return (
-        <Link className='returnLink' href='/login'>
+        <Link className='link-item' href='/login'>
           Iniciar Sesión
         </Link>
       )
     } else {
       if (router.pathname === '/dashboard') {
         return (
-          <Link className='returnLink' href='/'>
+          <Link className='link-item' href='/'>
             Ir al centro de Filtrado
           </Link>
         )
       }
       return (
-        <Link className='returnLink' href='/dashboard'>
+        <Link className='link-item' href='/dashboard'>
           Ir al centro de Edición
         </Link>
       )

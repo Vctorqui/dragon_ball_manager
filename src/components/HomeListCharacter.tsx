@@ -18,6 +18,7 @@ import UserContext from '@/contexts/UserContext'
 import { useCharacters } from '@/hooks/useCharacters'
 import { DashboardCrud } from './DashboardCharacter'
 import { useRouter } from 'next/router'
+import { genderOptions, raceOptions } from '@/utils/const'
 
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
@@ -47,8 +48,6 @@ const HomeListCharacters = () => {
   const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
   const [selectedRaces, setSelectedRaces] = useState('')
   const [selectedGender, setSelectedGender] = useState('')
-  const raceOptions = ['Saiyan', 'Namekian', 'Human', 'Frieza Race', 'Android']
-  const genderOptions = ['Male', 'Female', 'Unknown']
   const { characters } = useCharacters()
 
   useEffect(() => {

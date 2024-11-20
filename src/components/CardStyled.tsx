@@ -1,5 +1,8 @@
 import { Box, styled, Typography } from '@mui/material'
 import Image from 'next/image'
+import CustomDialog from './StyledDialog'
+import { useState } from 'react'
+import theme from '../../theme/theme'
 
 interface cardItemsProps {
   character: any
@@ -9,8 +12,9 @@ interface cardItemsProps {
 }
 
 const CardStyled = styled(Box)((theme) => ({
+  cursor: 'pointer',
   perspective: '1000px',
-  margin: '20px 20px 0 0',
+  margin: '20px 0',
   '&:hover .card-image': {
     transform: 'translateZ(50px)',
   },
@@ -71,54 +75,72 @@ const CardStyled = styled(Box)((theme) => ({
   },
 }))
 
-export const CardDB = ({
-  className,
-  onClick,
-  character,
-  children,
-}: cardItemsProps) => {
+export const CardDB = ({ className, character, children }: cardItemsProps) => {
+  const [open, setOpen] = useState(false)
   return (
-    <CardStyled className={className} onClick={onClick}>
-      {children}
-      <Box className='card-content'>
-        <Image
-          src={character.image}
-          className='card-image'
-          width={150}
-          height={270}
-          alt={character.name}
-        />
+    <>
+      <CardStyled className={className} onClick={() => setOpen(true)}>
+        {children}
+        <Box className='card-content'>
+          <Image
+            src={character.image}
+            className='card-image'
+            width={150}
+            height={270}
+            alt={character.name}
+          />
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            height={120}
+          >
+            <Box className='first-content'>
+              <Typography variant='h2' className='card-title'>
+                {character.name}
+              </Typography>
+              <Typography variant='body2' className='card-details'>
+                <strong>Raza:</strong> {character.race}
+              </Typography>
+              <Typography variant='body2' className='card-details'>
+                <strong>Genero:</strong> {character.gender}
+              </Typography>
+            </Box>
+            <Box className='second-content'>
+              <Typography variant='h2' className='card-title'>
+                {character.name}
+              </Typography>
+              <Typography variant='body2' className='card-details'>
+                <strong>Power level:</strong> {character.ki}
+              </Typography>
+              <Typography variant='body2' className='card-details'>
+                <strong>Full Power Level:</strong> {character.maxKi}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </CardStyled>
+      <CustomDialog open={open} onClose={() => setOpen(false)}>
         <Box
+          p={3}
           display={'flex'}
           flexDirection={'column'}
           justifyContent={'center'}
-          alignItems={'center'}
-          height={120}
+          gap={1}
         >
-          <Box className='first-content'>
-            <Typography variant='h2' className='card-title'>
-              {character.name}
+          <Typography variant='h3'>{character.name}</Typography>
+          <Box>
+            <Typography fontWeight={700} color={theme.palette.secondary.main} variant='body2'>
+              Genero: {character.gender}
             </Typography>
-            <Typography variant='body2' className='card-details'>
-              <strong>Raza:</strong> {character.race}
-            </Typography>
-            <Typography variant='body2' className='card-details'>
-              <strong>Genero:</strong> {character.gender}
+            <Typography fontWeight={700} color={theme.palette.secondary.main} variant='body2'>
+              Raza: {character.race}
             </Typography>
           </Box>
-          <Box className='second-content'>
-            <Typography variant='h2' className='card-title'>
-              {character.name}
-            </Typography>
-            <Typography variant='body2' className='card-details'>
-              <strong>Power level:</strong> {character.ki}
-            </Typography>
-            <Typography variant='body2' className='card-details'>
-              <strong>Full Power Level:</strong> {character.maxKi}
-            </Typography>
-          </Box>
+          <Typography variant='body1'>{character.description}</Typography>
         </Box>
-      </Box>
-    </CardStyled>
+      </CustomDialog>
+    </>
   )
 }

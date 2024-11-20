@@ -67,13 +67,14 @@ const Banner = () => {
             Dragon Ball Character Manager
           </Typography>
           <Typography
+            fontWeight={700}
             textAlign={'center'}
             color={theme.palette.text.primary}
             variant='h6'
             className='banner-text'
           >
-            Explora el vasto universo de personajes de Dragon Ball. Busca,
-            filtra, crea, edita y descubre tus favoritos de la serie..
+            Explora el vasto universo de personajes de Dragon Ball. Filtra
+            personajes Z. Crea y edita tus propias cartas.
           </Typography>
         </Box>
       </BannerContainer>

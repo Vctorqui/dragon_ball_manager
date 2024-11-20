@@ -6,7 +6,6 @@ import {
   Box,
   IconButton,
   DialogProps,
-  Typography,
   styled,
 } from '@mui/material'
 import { Close } from '@mui/icons-material'
@@ -51,7 +50,6 @@ const BoxDialog = styled(Dialog)(({ theme }) => ({
 
 const CustomDialog = ({
   open,
-  title,
   maxWidth = 'sm',
   fullMobile = false,
   children,
@@ -74,9 +72,6 @@ const CustomDialog = ({
           alignItems: 'center',
         }}
       >
-        <Typography variant='h5' textAlign={'left'}>
-          {title}
-        </Typography>
         {onClose && (
           <BoxClose>
             <IconButton

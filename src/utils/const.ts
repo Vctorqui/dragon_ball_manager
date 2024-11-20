@@ -36,6 +36,9 @@ export const characterSchema = z.object({
   gender: z.string({ message: 'Debes añadir el genero de tu guerrero' }),
   ki: z.string().min(1, { message: 'Puedes tener 0 de ki' }),
   maxKi: z.string().min(1, { message: 'Seguro tienes mas poder maximo' }),
+  description: z
+    .string()
+    .min(5, { message: 'La descripcion debe tener mas de 5 caracteres' }),
   image: z.any(),
 })
 

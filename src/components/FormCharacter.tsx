@@ -168,6 +168,14 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
         error={!!errors.maxKi}
         helperText={errors.maxKi ? errors.maxKi.message : ''}
       />
+      <StylizedInput
+        fullWidth
+        label='Añadir la descripcion de tu Guerrero'
+        placeholder='E.g. El protagonista de la serie, conocido por su gran poder y personalidad amigable.'
+        {...register('description')}
+        error={!!errors.description}
+        helperText={errors.description ? errors.description.message : ''}
+      />
       <Box
         display={'flex'}
         flexDirection={'column'}
