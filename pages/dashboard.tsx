@@ -3,7 +3,7 @@ import { CharacterList } from '@/components/CharacterList'
 import CustomDialog from '@/components/StyledDialog'
 import UserContext from '@/contexts/UserContext'
 import { Layout } from '@/layouts/Layout'
-import { Logout } from '@mui/icons-material'
+import { Add, Logout } from '@mui/icons-material'
 import { Box, Button, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
@@ -41,21 +41,20 @@ const Dasboard = () => {
           <Typography variant='h1'>Bienvenido, {user?.name}</Typography>
           <Button
             variant='contained'
-            color='error'
             startIcon={<Logout />}
             onClick={handleLogout}
           >
-            Logout
+            Cerrar Sesiónn
           </Button>
         </Box>
 
         <Button
           variant='contained'
-          color='primary'
+          startIcon={<Add />}
           onClick={() => setOpen(true)}
           sx={{ mb: 4 }}
         >
-          Add Characther
+          Añadir Guerrero
         </Button>
         <CustomDialog open={open} onClose={() => setOpen(false)}>
           <CharacterForm

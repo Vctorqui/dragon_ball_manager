@@ -44,10 +44,14 @@ export default function CharacterForm({
     handleSubmit,
     setValue,
     formState: { errors },
+    watch,
   } = useForm<CharacterSchema>({
     resolver: zodResolver(characterSchema),
     defaultValues: character || {},
   })
+
+  const selectedGender = watch('gender') // Observa el valor actual del género
+  const selectedRace = watch('race') // Observa el valor actual de la raza
 
   useEffect(() => {
     if (character) {
@@ -107,7 +111,8 @@ export default function CharacterForm({
       <Select
         fullWidth
         defaultValue=''
-        {...register('gender')}
+        value={selectedGender || ''}
+        // {...register('gender')}
         error={!!errors.gender}
         displayEmpty
         onChange={(e) => setValue('gender', e.target.value)}
@@ -121,11 +126,11 @@ export default function CharacterForm({
           </MenuItem>
         ))}
       </Select>
-      {errors.gender && <Box color='error.main'>{errors.gender.message}</Box>}
       <Select
         fullWidth
+        value={selectedRace || ''}
         defaultValue=''
-        {...register('race')}
+        // {...register('race')}
         error={!!errors.race}
         displayEmpty
         onChange={(e) => setValue('race', e.target.value)}
@@ -139,6 +144,22 @@ export default function CharacterForm({
           </MenuItem>
         ))}
       </Select>
+      <StylizedInput
+        fullWidth
+        label='Añadir Poder de tu Guerrero'
+        placeholder='E.g. 10 millones'
+        {...register('ki')}
+        error={!!errors.ki}
+        helperText={errors.ki ? errors.ki.message : ''}
+      />
+      <StylizedInput
+        fullWidth
+        label='Añadir Poder Máx de tu Guerrero'
+        placeholder='E.g. 120 millones'
+        {...register('maxKi')}
+        error={!!errors.maxKi}
+        helperText={errors.maxKi ? errors.maxKi.message : ''}
+      />
       <Box
         display={'flex'}
         flexDirection={'column'}

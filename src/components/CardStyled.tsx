@@ -93,6 +93,7 @@ export const CardDB = ({
 }: cardItemsProps) => {
   return (
     <CardStyled className={className} onClick={onClick}>
+      {children}
       <Box className='card-content'>
         <Image
           src={character.image}
@@ -126,7 +127,6 @@ export const CardDB = ({
           </Stack>
         </Stack>
       </Box>
-      {children}
     </CardStyled>
   )
 }

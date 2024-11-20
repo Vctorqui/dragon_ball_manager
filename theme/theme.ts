@@ -159,14 +159,13 @@ const theme = responsiveFontSizes(
         styleOverrides: {
           root: {
             '& fieldset': { borderColor: 'white' },
-            '&:hover fieldset': { borderColor: 'blue' },
             '&.Mui-focused fieldset': { borderColor: 'white' },
           },
         },
       },
       MuiSelect: { styleOverrides: { icon: { color: 'white' } } },
       MuiMenuItem: {
-        styleOverrides: { root: { '&:hover': { backgroundColor: 'blue' } } },
+        styleOverrides: { root: { '&:hover': { backgroundColor: '#E63730' } } },
       },
       MuiPaper: { styleOverrides: { root: { backgroundColor: 'black' } } },
       MuiContainer: {

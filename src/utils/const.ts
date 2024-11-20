@@ -45,8 +45,10 @@ export type RegisterSchema = z.infer<typeof registerSchema>
 
 export const characterSchema = z.object({
   name: z.string().min(2),
-  race: z.string().min(1),
-  gender: z.string().min(1),
+  race: z.string(),
+  gender: z.string(),
+  ki: z.string().min(1, { message: 'Puedes tener 0 de ki' }),
+  maxKi: z.string().min(1, {message: 'Seguro tienes mas poder maximo'}),
   image: z.any(),
 })
 
