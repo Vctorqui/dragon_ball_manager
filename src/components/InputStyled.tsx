@@ -99,7 +99,6 @@ const StylizedInput = ({
     <>
       {type !== 'password' ? (
         <FormControl fullWidth error={hasError}>
-          {/* {label && <FormLabelCustom>{label}</FormLabelCustom>} */}
           <TextField
             label={label}
             style={
@@ -147,7 +146,6 @@ const StylizedInput = ({
         </FormControl>
       ) : (
         <FormControl fullWidth error={hasError}>
-          {/* {label && <FormLabelCustom>{label}</FormLabelCustom>} */}
           <TextField
             label={label}
             size='small'

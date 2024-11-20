@@ -112,7 +112,6 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
           fullWidth
           defaultValue=''
           value={selectedGender || ''}
-          // {...register('gender')}
           error={!!errors.gender}
           displayEmpty
           onChange={(e) => setValue('gender', e.target.value)}
@@ -135,7 +134,6 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
         fullWidth
         value={selectedRace || ''}
         defaultValue=''
-        // {...register('race')}
         error={!!errors.race}
         displayEmpty
         onChange={(e) => setValue('race', e.target.value)}
