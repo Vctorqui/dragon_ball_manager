@@ -68,17 +68,6 @@ const FormRegister = ({ children }: any) => {
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
         />
-        <StylizedInput
-          type='password'
-          required
-          placeholder='***********'
-          label='Confirmar Contraseña'
-          {...register('confirm_password')}
-          error={!!errors.confirm_password}
-          helperText={
-            errors.confirm_password ? errors.confirm_password.message : ''
-          }
-        />
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Button
             type='submit'

@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import theme from '../../theme/theme'
 import { Delete, Edit } from '@mui/icons-material'
 import CustomDialog from './StyledDialog'
-import { Box, Button, Stack, styled } from '@mui/material'
+import { Box, Button, styled } from '@mui/material'
 import { CardDB } from './CardStyled'
 import { CharacterForm } from './FormCharacter'
+import { useRouter } from 'next/router'
 
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
@@ -39,6 +40,7 @@ export const DashboardCrud = () => {
   const [characters, setCharacters] = useState<any[]>([])
   const [editCharacter, setEditCharacter] = useState<any>(null)
   const [openDialog, setOpenDialog] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     loadCharacters()
@@ -63,17 +65,21 @@ export const DashboardCrud = () => {
         <Box className='card-grid'>
           {characters.map((character) => (
             <CardDB key={character.id} character={character}>
-              <Button
-                onClick={() => {
-                  setEditCharacter(character)
-                  setOpenDialog(true)
-                }}
-              >
-                <Edit className='icon-card' />
-              </Button>
-              <Button onClick={() => handleDelete(character.id)}>
-                <Delete className='icon-card' />
-              </Button>
+              {router.pathname === '/' ? null : (
+                <>
+                  <Button
+                    onClick={() => {
+                      setEditCharacter(character)
+                      setOpenDialog(true)
+                    }}
+                  >
+                    <Edit className='icon-card' />
+                  </Button>
+                  <Button onClick={() => handleDelete(character.id)}>
+                    <Delete className='icon-card' />
+                  </Button>
+                </>
+              )}
             </CardDB>
           ))}
         </Box>

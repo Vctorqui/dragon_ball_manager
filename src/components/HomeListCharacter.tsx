@@ -16,6 +16,8 @@ import StylizedInput from './InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import UserContext from '@/contexts/UserContext'
 import { useCharacters } from '@/hooks/useCharacters'
+import { DashboardCrud } from './DashboardCharacter'
+import { useRouter } from 'next/router'
 
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
@@ -39,7 +41,8 @@ const CardContainer = styled(Box)(() => ({
 }))
 
 const HomeListCharacters = () => {
-  const { currentUser } = useContext(UserContext)
+  const router = useRouter()
+  const { user } = useContext(UserContext)
   const [search, setSearch] = useState('')
   const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
   const [selectedRaces, setSelectedRaces] = useState('')
@@ -77,16 +80,38 @@ const HomeListCharacters = () => {
       return nameMatch && raceMatch && genderMatch
     }
   )
+
   const handleClearFilters = () => {
     setSelectedRaces('')
     setSelectedGender('')
+  }
+
+  const userIsLogin = () => {
+    if (user) {
+      if (router.pathname === '/') {
+        return (
+          <>
+            <Typography variant='h2' fontWeight={200}>
+              Guerreros{' '}
+              <span style={{ color: theme.palette.secondary.main }}>
+                Creados
+              </span>
+            </Typography>
+            <DashboardCrud />
+          </>
+        )
+      }
+      return null
+    } else {
+      null
+    }
   }
 
   return (
     <Box py={10}>
       <Container maxWidth='lg'>
         <Typography mb={2} variant='h3'>
-          Filtrar Guerreros
+          Filtrar Guerreros Z
         </Typography>
         <StylizedInput
           color='secondary'
@@ -140,10 +165,8 @@ const HomeListCharacters = () => {
         </Box>
         <CardContainer>
           <Typography variant='h2' fontWeight={200}>
-            Personajes <span style={{ color: theme.palette.secondary.main }}>Z</span>
-          </Typography>
-          <Typography variant='h2' fontWeight={200}>
-            {currentUser?.name}
+            Guerreros{' '}
+            <span style={{ color: theme.palette.secondary.main }}>Z</span>
           </Typography>
           <Box className='card-grid'>
             {filteredCharacters.map((character) => (
@@ -151,6 +174,7 @@ const HomeListCharacters = () => {
             ))}
           </Box>
         </CardContainer>
+        {userIsLogin()}
       </Container>
     </Box>
   )

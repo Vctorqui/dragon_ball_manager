@@ -9,13 +9,15 @@ export const useCharacters = () => {
     const fetchCharacters = async () => {
       try {
         const response = await fetch(
-          'https://dragonball-api.com/api/characters'
+          'https://dragonball-api.com/api/characters?limit=30'
         )
         const data = await response.json()
         const storedCharacters =
           (await localforage.getItem<characterTypes[]>('customCharacters')) ||
           []
-        setCharacters([...data.items.slice(0, 8), ...storedCharacters])
+
+        const allCharacters = [...data.items, ...storedCharacters]
+        setCharacters(allCharacters)
       } catch (error) {
         console.error('Error fetching characters:', error)
       }

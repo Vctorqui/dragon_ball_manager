@@ -1,10 +1,7 @@
-import { KeyboardReturn } from '@mui/icons-material'
 import {
   AppBar,
   Box,
-  Button,
   Container,
-  Stack,
   Toolbar,
   styled,
 } from '@mui/material'
@@ -39,31 +36,10 @@ const AppBarContainer = styled(AppBar)(({ theme }) => ({
   },
 }))
 
-const BoxNavContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-  [theme.breakpoints.down('lg')]: {
-    display: 'none',
-  },
-  '.nav-link': {
-    textDecoration: 'none',
-    color: theme.palette.common.white,
-    fontStyle: 'italic',
-    fontWeight: 700,
-    transition: 'all .2s ease-out',
-    '&:hover': {
-      color: theme.palette.text.secondary,
-    },
-  },
-}))
-
 export const Header = () => {
   const router = useRouter()
   const { user } = useContext(UserContext)
 
-  // Determina qué enlace mostrar
   const renderLink = () => {
     if (!user) {
       if (router.pathname === '/login') {

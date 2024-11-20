@@ -97,34 +97,40 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
       noValidate
     >
       <Typography variant='h3'>
-        {character ? 'Actualizar' : 'Añadir'} Personaje
+        {character ? 'Actualizar' : 'Añadir'} Guerrero
       </Typography>
       <StylizedInput
         fullWidth
-        label='Añadir Guerrero'
+        label='Añadir Nombre del Guerrero'
         placeholder='E.g. Goku'
         {...register('name')}
         error={!!errors.name}
         helperText={errors.name ? errors.name.message : ''}
       />
-      <Select
-        fullWidth
-        defaultValue=''
-        value={selectedGender || ''}
-        // {...register('gender')}
-        error={!!errors.gender}
-        displayEmpty
-        onChange={(e) => setValue('gender', e.target.value)}
-      >
-        <MenuItem value='' disabled>
-          Selecciona un género para tu Guerrero
-        </MenuItem>
-        {genderOptions.map((gender) => (
-          <MenuItem key={gender} value={gender}>
-            {gender}
+      <>
+        <Select
+          fullWidth
+          defaultValue=''
+          value={selectedGender || ''}
+          // {...register('gender')}
+          error={!!errors.gender}
+          displayEmpty
+          onChange={(e) => setValue('gender', e.target.value)}
+        >
+          <MenuItem value='' disabled>
+            Selecciona un género para tu Guerrero
           </MenuItem>
-        ))}
-      </Select>
+          {genderOptions.map((gender) => (
+            <MenuItem key={gender} value={gender}>
+              {gender}
+            </MenuItem>
+          ))}
+          <Typography component={'span'} variant='caption' color='error'>
+            {errors.gender ? errors.gender.message : ''}
+          </Typography>
+        </Select>
+      </>
+
       <Select
         fullWidth
         value={selectedRace || ''}
@@ -142,6 +148,9 @@ export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
             {race}
           </MenuItem>
         ))}
+        <Typography component={'span'} variant='caption' color='error'>
+          {errors.gender ? errors.gender.message : ''}
+        </Typography>
       </Select>
       <StylizedInput
         fullWidth

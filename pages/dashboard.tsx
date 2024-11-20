@@ -2,7 +2,7 @@ import CustomDialog from '@/components/StyledDialog'
 import UserContext from '@/contexts/UserContext'
 import { Layout } from '@/layouts/Layout'
 import { Add, Logout } from '@mui/icons-material'
-import { Box, Button, Container, Stack, Typography } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
 import { useContext, useEffect, useState } from 'react'
@@ -33,7 +33,7 @@ const Dasboard = () => {
   return (
     <Layout>
       <Container sx={{ marginTop: 15 }} maxWidth='lg'>
-        <Stack justifyContent='center' alignItems='center' mb={4}>
+        <Box display={'flex'} flexDirection={'column'} justifyContent='center' alignItems='center' mb={4}>
           <Typography variant='h2'>
             Bienvenido,{' '}
             <span style={{ color: theme.palette.text.secondary }}>
@@ -41,7 +41,7 @@ const Dasboard = () => {
             </span>
           </Typography>
           <Typography variant='h3'>Es hora de crear tu carta</Typography>
-        </Stack>
+        </Box>
         <Box display={'flex'} justifyContent={'flex-start'}>
           <Button
             variant='contained'
@@ -54,6 +54,7 @@ const Dasboard = () => {
         <CustomDialog open={open} onClose={() => setOpen(false)}>
           <CharacterForm
             onSuccess={() => {
+              router.push('/')
               setOpen(false)
               enqueueSnackbar('Personaje añadido con exito', {
                 variant: 'success',

@@ -32,9 +32,10 @@ A web application where you can find your favorite characters. You can register 
 
 ## Usage / Examples
 
-Page Routes
+Next.js: Page Routes
 
-- Use pages routes because it is ideal for small to medium applications where simplicity and convention over configuration are preferable. Normally in a more robust application it is advisable to use App Routes.
+- Next.js allows you to organize paths in a clear and predictable way using the Pages Router system. Each file in the pages folder is automatically converted into an accessible route, making navigation and route management easy. The use of pages routing is ideal for small to medium-sized applications where simplicity and convention are preferable to configuration. Normally in a more robust application it is advisable to use App Routes.
+  Also it has simple navigation with useRouter allows you to perform programmatic navigation within your Next.js application. This means that you can redirect users to different pages in response to events, such as after a form submission.
 
 ```javascript
 /pages
