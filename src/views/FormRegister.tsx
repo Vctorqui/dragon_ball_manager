@@ -1,5 +1,4 @@
 import UserContext from '@/contexts/UserContext'
-import { registerSchema, RegisterSchema } from '@/utils/const'
 import { Box, Button, Divider, styled, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { enqueueSnackbar } from 'notistack'
@@ -7,6 +6,7 @@ import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import StylizedInput from '@/components/InputStyled'
+import { registerSchema, RegisterSchema } from '@/utils/const'
 
 const FormRegisterContainer = styled(Box)(({ theme }) => ({}))
 
