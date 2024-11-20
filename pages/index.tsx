@@ -1,14 +1,12 @@
 import { Layout } from '@/layouts/Layout'
 import Banner from '@/components/Banner'
-import Contribution from '@/components/Contribution'
-import ListOfCharacters from '@/components/Characters'
+import HomeListCharacters from '@/components/HomeListCharacter'
 
 const Home = () => {
   return (
     <Layout>
       <Banner />
-      <ListOfCharacters />
-      {/* <Contribution /> */}
+      <HomeListCharacters />
     </Layout>
   )
 }

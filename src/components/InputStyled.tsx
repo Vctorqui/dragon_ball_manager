@@ -103,7 +103,7 @@ const StylizedInput = ({
           <TextField
             label={label}
             style={
-              mb !== undefined ? { marginBottom: mb } : { marginBottom: 16 }
+              mb !== undefined ? { marginBottom: mb } : { marginBottom: 10 }
             }
             size='small'
             error={hasError}
@@ -127,13 +127,13 @@ const StylizedInput = ({
                 maxLength: maxLength,
                 style: multiline
                   ? {
-                      backgroundColor: theme.palette.primary.main,
+                      backgroundColor: 'transparent',
                       borderRadius: 4,
                       margin: '-8.5px -14px',
                       padding: '8.5px 14px',
                     }
                   : {
-                      backgroundColor: theme.palette.primary.main,
+                      backgroundColor: 'transparent',
                       borderRadius: 4,
                     },
                 autoComplete: 'off',
@@ -199,13 +199,13 @@ const StylizedInput = ({
                 maxLength: maxLength,
                 style: multiline
                   ? {
-                      backgroundColor: theme.palette.primary.main,
+                      backgroundColor: 'transparent',
                       borderRadius: 4,
                       margin: '-8.5px -14px',
                       padding: '8.5px 14px',
                     }
                   : {
-                      backgroundColor: theme.palette.primary.main,
+                      backgroundColor: 'transparent',
                       borderRadius: 4,
                     },
                 autoComplete: 'off',

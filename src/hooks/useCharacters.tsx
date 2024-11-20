@@ -15,7 +15,7 @@ export const useCharacters = () => {
         const storedCharacters =
           (await localforage.getItem<characterTypes[]>('customCharacters')) ||
           []
-        setCharacters([...data.items.slice(0, 8), ...storedCharacters]) // Combining API and stored characters
+        setCharacters([...data.items.slice(0, 8), ...storedCharacters])
       } catch (error) {
         console.error('Error fetching characters:', error)
       }
@@ -24,17 +24,5 @@ export const useCharacters = () => {
     fetchCharacters()
   }, [])
 
-  const addCharacter = async (newCharacter: characterTypes) => {
-    const updatedCharacters = [
-      ...characters,
-      { ...newCharacter, id: Date.now() },
-    ]
-    setCharacters(updatedCharacters)
-    await localforage.setItem(
-      'customCharacters',
-      updatedCharacters.filter((char) => !char.isDefault)
-    )
-  }
-
-  return { characters, addCharacter }
+  return { characters }
 }

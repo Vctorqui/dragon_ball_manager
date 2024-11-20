@@ -155,14 +155,7 @@ const theme = responsiveFontSizes(
           root: { color: 'white', '&.Mui-focused': { color: 'white' } },
         },
       },
-      MuiOutlinedInput: {
-        styleOverrides: {
-          root: {
-            '& fieldset': { borderColor: 'white' },
-            '&.Mui-focused fieldset': { borderColor: 'white' },
-          },
-        },
-      },
+
       MuiSelect: { styleOverrides: { icon: { color: 'white' } } },
       MuiMenuItem: {
         styleOverrides: { root: { '&:hover': { backgroundColor: '#E63730' } } },

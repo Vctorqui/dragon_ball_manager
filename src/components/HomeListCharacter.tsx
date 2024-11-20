@@ -38,7 +38,7 @@ const CardContainer = styled(Box)(() => ({
   },
 }))
 
-const ListOfCharacters = () => {
+const HomeListCharacters = () => {
   const { currentUser } = useContext(UserContext)
   const [search, setSearch] = useState('')
   const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
@@ -140,7 +140,7 @@ const ListOfCharacters = () => {
         </Box>
         <CardContainer>
           <Typography variant='h2' fontWeight={200}>
-            Personajes <span style={{ color: '#E63730' }}>Z</span>
+            Personajes <span style={{ color: theme.palette.secondary.main }}>Z</span>
           </Typography>
           <Typography variant='h2' fontWeight={200}>
             {currentUser?.name}
@@ -156,4 +156,4 @@ const ListOfCharacters = () => {
   )
 }
 
-export default ListOfCharacters
+export default HomeListCharacters

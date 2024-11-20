@@ -2,12 +2,11 @@ import localforage from 'localforage'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 import theme from '../../theme/theme'
-import Image from 'next/image'
 import { Delete, Edit } from '@mui/icons-material'
 import CustomDialog from './StyledDialog'
 import { Box, Button, Stack, styled } from '@mui/material'
-import CharacterForm from './CharacterForm'
 import { CardDB } from './CardStyled'
+import { CharacterForm } from './FormCharacter'
 
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
@@ -28,9 +27,15 @@ const CardContainer = styled(Box)(() => ({
       gridTemplateColumns: 'repeat(1, 1fr)',
     },
   },
+  '.icon-card': {
+    color: theme.palette.secondary.main,
+    '&:hover': {
+      color: theme.palette.secondary.light,
+    },
+  },
 }))
 
-export const CharacterList = () => {
+export const DashboardCrud = () => {
   const [characters, setCharacters] = useState<any[]>([])
   const [editCharacter, setEditCharacter] = useState<any>(null)
   const [openDialog, setOpenDialog] = useState(false)
@@ -64,10 +69,10 @@ export const CharacterList = () => {
                   setOpenDialog(true)
                 }}
               >
-                <Edit sx={{ color: '#E63730' }} />
+                <Edit className='icon-card' />
               </Button>
               <Button onClick={() => handleDelete(character.id)}>
-                <Delete sx={{ color: '#E63730' }} />
+                <Delete className='icon-card' />
               </Button>
             </CardDB>
           ))}

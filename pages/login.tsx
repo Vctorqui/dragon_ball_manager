@@ -26,32 +26,28 @@ const Login: NextPage = () => {
       <Container maxWidth={'lg'}>
         <FormBox>
           {tab === 0 && (
-            <Box className={tab === 0 ? 'fade-in' : 'fade-out'}>
-              <FormLogin>
-                <Box display={'flex'} alignItems={'center'} mt={2}>
-                  <Typography variant='body2' fontWeight={'700'}>
-                    ¿No tienes cuenta aún?
-                  </Typography>
-                  <Button variant='text' onClick={() => setTab(1)}>
-                    Crear una cuenta
-                  </Button>
-                </Box>
-              </FormLogin>
-            </Box>
+            <FormLogin>
+              <Box display={'flex'} alignItems={'center'} mt={2}>
+                <Typography variant='body2' fontWeight={'700'}>
+                  ¿No tienes cuenta aún?
+                </Typography>
+                <Button variant='text' onClick={() => setTab(1)}>
+                  Crear una cuenta
+                </Button>
+              </Box>
+            </FormLogin>
           )}
           {tab === 1 && (
-            <Box className={tab === 1 ? 'fade-in' : 'fade-out'}>
-              <FormRegister>
-                <Box display={'flex'} alignItems={'center'}>
-                  <Typography variant='body2' fontWeight={'700'}>
-                    ¿Ya tienes una cuenta?
-                  </Typography>
-                  <Button variant='text' onClick={() => setTab(0)}>
-                    Iniciar Sesión
-                  </Button>
-                </Box>
-              </FormRegister>
-            </Box>
+            <FormRegister>
+              <Box display={'flex'} alignItems={'center'}>
+                <Typography variant='body2' fontWeight={'700'}>
+                  ¿Ya tienes una cuenta?
+                </Typography>
+                <Button variant='text' onClick={() => setTab(0)}>
+                  Iniciar Sesión
+                </Button>
+              </Box>
+            </FormRegister>
           )}
         </FormBox>
       </Container>

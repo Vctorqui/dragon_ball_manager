@@ -1,18 +1,13 @@
-import { loginFormTypes, registerFormTypes } from '@/types/types'
 import { z } from 'zod'
 
-export const loginFormInit: loginFormTypes = {
-  email: '',
-  password: '',
-  // name: '',
-}
-
-export const registerFormInit: registerFormTypes = {
-  name: '',
-  email: '',
-  password: '',
-  password_confirm: '',
-}
+export const raceOptions = [
+  'Saiyan',
+  'Human',
+  'Namekian',
+  'Frieza Race',
+  'Android',
+]
+export const genderOptions = ['Male', 'Female', 'Other']
 
 export const loginSchema = z.object({
   email: z.string().email({ message: 'Dirección de email no válida' }),
@@ -30,12 +25,10 @@ export const registerSchema = z
     password: z
       .string()
       .min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
-    confirm_password: z
-      .string()
-      .min(6, {
-        message:
-          'La confirmación de la contraseña debe tener al menos 6 caracteres',
-      }),
+    confirm_password: z.string().min(6, {
+      message:
+        'La confirmación de la contraseña debe tener al menos 6 caracteres',
+    }),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: 'Las contraseñas no coinciden',
@@ -48,7 +41,7 @@ export const characterSchema = z.object({
   race: z.string(),
   gender: z.string(),
   ki: z.string().min(1, { message: 'Puedes tener 0 de ki' }),
-  maxKi: z.string().min(1, {message: 'Seguro tienes mas poder maximo'}),
+  maxKi: z.string().min(1, { message: 'Seguro tienes mas poder maximo' }),
   image: z.any(),
 })
 

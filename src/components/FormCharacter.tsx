@@ -10,7 +10,12 @@ import {
   Typography,
 } from '@mui/material'
 import StylizedInput from './InputStyled'
-import { characterSchema, CharacterSchema } from '@/utils/const'
+import {
+  characterSchema,
+  CharacterSchema,
+  genderOptions,
+  raceOptions,
+} from '@/utils/const'
 import theme from '../../theme/theme'
 import { CloudUpload } from '@mui/icons-material'
 import { useEffect } from 'react'
@@ -29,16 +34,10 @@ const VisuallyHiddenInput = styled('input')({
 
 interface CharacterFormProps {
   character?: any
-  onSuccess?: (updatedCharacters: any[]) => void // Especifica que puede recibir un array de personajes
+  onSuccess?: (updatedCharacters: any[]) => void
 }
 
-const raceOptions = ['Saiyan', 'Human', 'Namekian', 'Frieza Race', 'Android']
-const genderOptions = ['Male', 'Female', 'Other']
-
-export default function CharacterForm({
-  character,
-  onSuccess,
-}: CharacterFormProps) {
+export const CharacterForm = ({ character, onSuccess }: CharacterFormProps) => {
   const {
     register,
     handleSubmit,
@@ -50,8 +49,8 @@ export default function CharacterForm({
     defaultValues: character || {},
   })
 
-  const selectedGender = watch('gender') // Observa el valor actual del género
-  const selectedRace = watch('race') // Observa el valor actual de la raza
+  const selectedGender = watch('gender')
+  const selectedRace = watch('race')
 
   useEffect(() => {
     if (character) {
@@ -90,7 +89,7 @@ export default function CharacterForm({
       display={'flex'}
       flexDirection={'column'}
       justifyContent={'center'}
-      gap={1}
+      gap={2}
       alignItems={'center'}
       className='form-box'
       component='form'
@@ -165,7 +164,11 @@ export default function CharacterForm({
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
+        gap={2}
       >
+        <Typography variant='body2'>
+          {character ? 'Actualiza' : 'Selecciona'} la imagen de tu Guerrero
+        </Typography>
         <Button
           sx={{ marginBottom: theme.spacing(2) }}
           component='label'
@@ -184,7 +187,7 @@ export default function CharacterForm({
           type='submit'
           variant='contained'
           color='primary'
-          sx={{ my: 2 }}
+          sx={{ my: 1 }}
         >
           {character ? 'Actualizar' : 'Añadir'} Personaje
         </Button>
