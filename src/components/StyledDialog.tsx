@@ -62,6 +62,7 @@ const CustomDialog = ({
       maxWidth={maxWidth}
       fullWidth
       className={fullMobile ? 'full-mobile' : ''}
+      disableAutoFocus
     >
       <DialogTitle
         align='center'
