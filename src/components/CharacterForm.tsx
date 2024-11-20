@@ -51,7 +51,7 @@ export default function CharacterForm({
     const characters = (await localforage.getItem<any[]>('characters')) || []
 
     let imageUrl = character?.image || ''
-    if (typeof window !== 'undefined' && data.image && data.image.length > 0) {
+    if (data.image && data.image.length > 0 && data.image[0] instanceof File) {
       const image = data.image[0]
       imageUrl = URL.createObjectURL(image)
     }

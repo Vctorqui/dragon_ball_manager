@@ -6,7 +6,7 @@ import ListOfCharacters from '@/components/Characters'
 const Home = () => {
   return (
     <Layout>
-      <Banner />
+      {/* <Banner /> */}
       <ListOfCharacters />
       <Contribution />
     </Layout>

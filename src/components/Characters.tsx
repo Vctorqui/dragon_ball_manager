@@ -43,8 +43,6 @@ const CardContainer = styled(Box)(() => ({
 
 const ListOfCharacters = () => {
   const { currentUser } = useContext(UserContext)
-  // const characters = responsiveCharacters.items
-  // const hasCharacter = characters?.length > 0
   const [search, setSearch] = useState('')
   const [dbCharacters, setDbCharacters] = useState()
   const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
@@ -149,12 +147,7 @@ const ListOfCharacters = () => {
           </Typography>
           <Box className='card-grid'>
             {filteredCharacters.map((character) => (
-              <CardDB2
-                key={character.id}
-                character={character}
-                onEdit={() => {}}
-                onDelete={() => {}}
-              />
+              <CardDB key={character.name} character={character} />
             ))}
           </Box>
         </CardContainer>
@@ -164,3 +157,12 @@ const ListOfCharacters = () => {
 }
 
 export default ListOfCharacters
+
+{
+  /* <CardDB2
+key={character.id}
+character={character}
+onEdit={() => {}}
+onDelete={() => {}}
+/> */
+}
