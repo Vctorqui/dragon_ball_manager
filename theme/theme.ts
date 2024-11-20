@@ -53,7 +53,8 @@ const theme = responsiveFontSizes(
         fontWeight: 100,
       },
       h4: {
-        fontFamily: 'Arial',
+        fontFamily: 'Saiyan-Sans',
+        fontWeight: 100,
       },
       h5: {
         fontFamily: 'Arial',

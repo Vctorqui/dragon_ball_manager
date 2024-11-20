@@ -1,7 +1,8 @@
-import { Box, styled, Typography } from '@mui/material'
+import { Box, Container, styled, Typography } from '@mui/material'
 import theme from '../../theme/theme'
 
 const BannerContainer = styled(Box)(() => ({
+  padding: '0 20px',
   background: theme.palette.primary.main,
   position: 'relative',
   height: 'calc(100vh - 450px)',
@@ -10,6 +11,9 @@ const BannerContainer = styled(Box)(() => ({
   flexDirection: 'row-reverse',
   justifyContent: 'center',
   alignItems: 'center',
+  [theme.breakpoints.down('md')]: {
+    height: 'calc(100vh - 250px)',
+  },
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -58,24 +62,26 @@ const Banner = () => {
           <source src='/video/banner-db.mp4' type='video/mp4' />
         </Box>
         <Box className='bannerContainer'>
-          <Typography
-            textAlign={'center'}
-            variant='h2'
-            color={theme.palette.text.secondary}
-            className='banner-text'
-          >
-            Dragon Ball Character Manager
-          </Typography>
-          <Typography
-            fontWeight={700}
-            textAlign={'center'}
-            color={theme.palette.text.primary}
-            variant='h6'
-            className='banner-text'
-          >
-            Explora el vasto universo de personajes de Dragon Ball. Filtra
-            personajes Z. Crea y edita tus propias cartas.
-          </Typography>
+          <Container maxWidth='lg'>
+            <Typography
+              textAlign={'center'}
+              variant='h2'
+              color={theme.palette.text.secondary}
+              className='banner-text'
+            >
+              Dragon Ball Character Manager
+            </Typography>
+            <Typography
+              fontWeight={700}
+              textAlign={'center'}
+              color={theme.palette.text.primary}
+              variant='h6'
+              className='banner-text'
+            >
+              Explora el vasto universo de personajes de Dragon Ball. Filtra
+              personajes Z. Crea y edita tus propias cartas.
+            </Typography>
+          </Container>
         </Box>
       </BannerContainer>
     </>

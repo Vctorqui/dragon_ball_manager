@@ -41,6 +41,9 @@ const FormLogin = ({ children }: any) => {
         onSubmit={handleSubmit(onSubmit)}
         noValidate
       >
+        <Typography textAlign={'center'} variant='h4' gutterBottom>
+          Bienvenido Nuevamente Guerrero
+        </Typography>
         <Typography textAlign={'center'} variant='h3' gutterBottom>
           Iniciar Sesión
         </Typography>
