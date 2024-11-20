@@ -107,7 +107,7 @@ const HomeListCharacters = () => {
   }
 
   return (
-    <Box py={10}>
+    <Box pt={2} pb={10}>
       <Container maxWidth='lg'>
         <Typography mb={2} variant='h3'>
           Filtrar Guerreros Z

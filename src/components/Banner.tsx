@@ -12,7 +12,7 @@ const BannerContainer = styled(Box)(() => ({
   justifyContent: 'center',
   alignItems: 'center',
   [theme.breakpoints.down('md')]: {
-    height: 'calc(100vh - 250px)',
+    height: 'calc(100vh - 350px)',
   },
   '&::before': {
     content: '""',
