@@ -42,7 +42,7 @@ export const characterSchema = z.object({
   name: z.string().min(2),
   race: z.string().min(1),
   gender: z.string().min(1),
-  image: z.any(),
+  image: z.instanceof(FileList).optional(),
 })
 
 export type CharacterSchema = z.infer<typeof characterSchema>

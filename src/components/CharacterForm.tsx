@@ -49,9 +49,12 @@ export default function CharacterForm({
 
   const onSubmit = async (data: CharacterSchema) => {
     const characters = (await localforage.getItem<any[]>('characters')) || []
-
-    const image = data.image[0]
-    const imageUrl = URL.createObjectURL(image)
+    
+    let imageUrl = character?.image || ''
+    if (data.image instanceof FileList && data.image.length > 0) {
+      const image = data.image[0]
+      imageUrl = URL.createObjectURL(image)
+    }
 
     if (character) {
       const index = characters.findIndex((c) => c.id === character.id)
