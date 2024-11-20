@@ -24,7 +24,7 @@ const FooterBox = styled(Box)(() => ({
 }))
 
 export const Footer = () => {
-//   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
+  //   const isSm = useMediaQuery(theme.breakpoints.down('sm'))
   const router = useRouter()
   const changeColor =
     router.pathname === '/'
@@ -40,7 +40,7 @@ export const Footer = () => {
       <Container maxWidth={'lg'}>
         <Box className='footerContainer'>
           <Typography gutterBottom color={changeColor} variant='subtitle2'>
-            ©2024 DevDash. Casi todos los derechos reservados.
+            ©2024 Dragon Ball Super Manager. Casi todos los derechos reservados.
           </Typography>
         </Box>
       </Container>

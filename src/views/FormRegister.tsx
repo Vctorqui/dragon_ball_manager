@@ -42,7 +42,6 @@ const FormRegister = ({ children }: any) => {
       >
         <Typography
           textAlign={'center'}
-          component={'h4'}
           variant='h3'
           gutterBottom
         >

@@ -32,7 +32,7 @@ const Login: NextPage = () => {
                   <Typography variant='body2' fontWeight={'700'}>
                     ¿No tienes cuenta aún?
                   </Typography>
-                  <Button variant='outlined' onClick={() => setTab(1)}>
+                  <Button variant='text' onClick={() => setTab(1)}>
                     Crear una cuenta
                   </Button>
                 </Box>
@@ -46,7 +46,7 @@ const Login: NextPage = () => {
                   <Typography variant='body2' fontWeight={'700'}>
                     ¿Ya tienes una cuenta?
                   </Typography>
-                  <Button variant='outlined' onClick={() => setTab(0)}>
+                  <Button variant='text' onClick={() => setTab(0)}>
                     Iniciar Sesión
                   </Button>
                 </Box>

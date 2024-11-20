@@ -8,7 +8,7 @@ const Home = () => {
     <Layout>
       <Banner />
       <ListOfCharacters />
-      <Contribution />
+      {/* <Contribution /> */}
     </Layout>
   )
 }

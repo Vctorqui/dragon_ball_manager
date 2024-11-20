@@ -2,14 +2,12 @@ import {
   Box,
   Button,
   Container,
-  FormControl,
   InputLabel,
   MenuItem,
   styled,
   Typography,
 } from '@mui/material'
-import { CardDB, CardDB2 } from './ui/CardStyled'
-import responsiveCharacters from '@/mocks/with-results.json'
+import { CardDB } from './ui/CardStyled'
 import theme from '../../theme/theme'
 import localforage from 'localforage'
 import { useContext, useEffect, useState } from 'react'
@@ -18,6 +16,7 @@ import StylizedInput from './ui/InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import UserContext from '@/contexts/UserContext'
 import { useCharacters } from '@/hooks/useCharacters'
+
 const CardContainer = styled(Box)(() => ({
   padding: '2rem 0',
   minHeight: '100vh',
@@ -27,16 +26,14 @@ const CardContainer = styled(Box)(() => ({
   '.card-grid': {
     margin: '0 auto',
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)' /* 2 columnas por defecto */,
-    gap: '1rem' /* Espacio entre elementos */,
-    gridAutoRows: '450px' /* Altura de las filas */,
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '1rem',
+    gridAutoRows: '450px',
     [theme.breakpoints.down('md')]: {
       gridTemplateColumns: 'repeat(2, 1fr)',
-      // gridAutoRows: '180px',
     },
     [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: 'repeat(1, 1fr)',
-      // gridAutoRows: '180px',
     },
   },
 }))
@@ -44,7 +41,6 @@ const CardContainer = styled(Box)(() => ({
 const ListOfCharacters = () => {
   const { currentUser } = useContext(UserContext)
   const [search, setSearch] = useState('')
-  const [dbCharacters, setDbCharacters] = useState()
   const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
   const [selectedRaces, setSelectedRaces] = useState('')
   const [selectedGender, setSelectedGender] = useState('')
@@ -87,12 +83,16 @@ const ListOfCharacters = () => {
   }
 
   return (
-    <Box sx={{ background: '#000', padding: '20px 0' }}>
+    <Box py={10}>
       <Container maxWidth='lg'>
+        <Typography mb={2} variant='h3'>
+          Filtrar Guerreros
+        </Typography>
         <StylizedInput
           color='secondary'
           focused
           fullWidth
+          placeholder='Busca tu guerrero favorito'
           label='Buscar personajes '
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -157,12 +157,3 @@ const ListOfCharacters = () => {
 }
 
 export default ListOfCharacters
-
-{
-  /* <CardDB2
-key={character.id}
-character={character}
-onEdit={() => {}}
-onDelete={() => {}}
-/> */
-}

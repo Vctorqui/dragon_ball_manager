@@ -7,15 +7,12 @@ const colors = {
     dark: '',
   },
   secondary: {
-    main: '#FF6500',
+    main: '#E63730',
     light: '#EEEEEE',
   },
   text: {
     primary: '#EEEEEE',
-    secondary: '#FF6500',
-  },
-  backgroundOrange: {
-    orange: '#FF6500',
+    secondary: '#E63730',
   },
 }
 
@@ -36,7 +33,7 @@ const theme = responsiveFontSizes(
         secondary: colors.text.secondary,
       },
       background: {
-        default: '#121212',
+        default: '#000',
         paper: '#1e1e1e',
       },
     },
@@ -78,13 +75,21 @@ const theme = responsiveFontSizes(
               background: 'rgba(0, 0, 0, 0.12)',
             },
           },
+          text: {
+            color: '#E63730',
+            fontSize: 14,
+            fontWeight: 'bold',
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          },
           containedPrimary: {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             gap: '5px',
             height: '40px',
-            border: '2px solid #FF6500',
+            border: '2px solid #E63730',
             boxShadow: '4px 4px #323232',
             fontSize: '16px',
             fontWeight: 600,
@@ -101,7 +106,7 @@ const theme = responsiveFontSizes(
               left: '0',
               height: '100%',
               width: '0',
-              backgroundColor: '#FF6500',
+              backgroundColor: '#E63730',
               zIndex: -1,
               WebkitBoxShadow: '4px 8px 19px -3px rgba(0, 0, 0, 0.27)',
               boxShadow: '4px 8px 19px -3px rgba(0, 0, 0, 0.27)',
@@ -116,8 +121,8 @@ const theme = responsiveFontSizes(
             alignItems: 'center',
             gap: '5px',
             height: '40px',
-            border: '2px solid #FF6500',
-            backgroundColor: '#FF6500',
+            border: '2px solid #E63730',
+            backgroundColor: '#E63730',
             boxShadow: '4px 4px #323232',
             fontSize: '16px',
             fontWeight: 600,
