@@ -11,7 +11,7 @@ import { CardDB } from './CardStyled'
 import theme from '../../theme/theme'
 import localforage from 'localforage'
 import { useContext, useEffect, useState } from 'react'
-import { characterTypes } from '@/types/types'
+import { CharacterTypes } from '@/types/types'
 import StylizedInput from './InputStyled'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import UserContext from '@/contexts/UserContext'
@@ -45,14 +45,14 @@ const HomeListCharacters = () => {
   const router = useRouter()
   const { user } = useContext(UserContext)
   const [search, setSearch] = useState('')
-  const [customCharacters, setCustomCharacters] = useState<characterTypes[]>([])
+  const [customCharacters, setCustomCharacters] = useState<CharacterTypes[]>([])
   const [selectedRaces, setSelectedRaces] = useState('')
   const [selectedGender, setSelectedGender] = useState('')
   const { characters } = useCharacters()
 
   useEffect(() => {
     const loadCustomCharacters = async () => {
-      const saved = await localforage.getItem<characterTypes[]>(
+      const saved = await localforage.getItem<CharacterTypes[]>(
         'customCharacters'
       )
       if (saved) setCustomCharacters(saved)

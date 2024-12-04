@@ -4,7 +4,7 @@ import CustomDialog from './StyledDialog'
 import { useState } from 'react'
 import theme from '../../theme/theme'
 
-interface cardItemsProps {
+interface CardItemsProps {
   character: any
   className?: string
   onClick?: any
@@ -75,7 +75,7 @@ const CardStyled = styled(Box)((theme) => ({
   },
 }))
 
-export const CardDB = ({ className, character, children }: cardItemsProps) => {
+export const CardDB = ({ className, character, children }: CardItemsProps) => {
   const [open, setOpen] = useState(false)
   return (
     <>
